@@ -1,5 +1,7 @@
 body {
   font-family: 'Quicksand', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 nav {
@@ -22,6 +24,10 @@ nav li {
   display: inline;
   list-style-type: none;
   margin-right: 20px;
+}
+
+main {
+  padding: 20px;
 }
 
 h2, h3 {
