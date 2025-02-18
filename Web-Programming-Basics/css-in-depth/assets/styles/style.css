@@ -2,15 +2,27 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: 'Quicksand', sans-serif;
-  margin: 0;
-  padding: 0;
+header {
+  display: inline;
+}
+
+.profile header{
+  text-align: center;
+}
+
+.jumbotron {
+  background-color: #00c8eb;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  padding: 60px;
 }
 
 nav {
   background-color: #00a2c6;
   padding: 5px;
+  position: sticky;
+  top: 0;
 }
 
 nav a {
@@ -30,6 +42,12 @@ nav li {
   margin-right: 20px;
 }
 
+body {
+  font-family: 'Quicksand', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 main {
   padding: 20px;
   overflow: auto;
@@ -37,18 +55,6 @@ main {
 
 h2, h3 {
   color: #00a2c6;
-}
-
-footer {
-  padding: 20px;
-  color: white;
-  background-color: #00a2c6;
-  font-weight: bold;
-  text-align: center;
-}
-
-.profile header{
-  text-align: center;
 }
 
 .featured-image {
@@ -67,14 +73,6 @@ footer {
   border-radius: 5px;
   padding: 20px;
   margin: 20px;
-}
-
-.jumbotron {
-  background-color: #00c8eb;
-  color: white;
-  text-align: center;
-  font-size: 20px;
-  padding: 60px;
 }
 
 aside {
@@ -96,5 +94,12 @@ aside {
   
 }
 
+footer {
+  padding: 20px;
+  color: white;
+  background-color: #00a2c6;
+  font-weight: bold;
+  text-align: center;
+}
 
 
