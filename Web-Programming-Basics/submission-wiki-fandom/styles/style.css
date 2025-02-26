@@ -1,0 +1,400 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(198, 223, 238);
+  font-family: 'Rubik', Helvetica, Arial, sans-serif;
+}
+
+/* ----- Header Begin ----- */
+
+header.navbar-container {
+  width: 100%;
+  padding-block: 1rem;
+  padding-inline: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  gap: 2rem;
+  background-color: rgb(198, 223, 238);
+  align-items: center;
+}
+
+header.navbar-container .site-logo img {
+  width: 250px;
+}
+
+.nav-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 20px;
+}
+.nav-wrapper h2{
+  padding-top: 10px;
+}
+
+.nav-list ul li {
+  position: relative;
+  z-index: 1000;
+}
+
+header.navbar-container .nav-list ul {
+  display: flex;
+  justify-content: center;
+}
+
+header.navbar-container .nav-list li {
+  list-style-type: none;
+  padding-right: 1em;
+  padding-block: 1em;
+}
+
+
+.nav-list ul li a:hover {
+  background: rgba(101, 101, 101, 0.1);
+  text-decoration: underline;
+}
+
+
+header.navbar-container .nav-list a {
+  color: black;
+  font-weight: bold;
+}
+
+/* ----- Dropdown Menu ----- */
+.dropdown-menu {
+  position: absolute;
+  left: 0;
+  background: white;
+  width: 150px;
+  align-items: flex-start;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+
+header.navbar-container .nav-list .dropdown-menu li a {
+  width: 100%;
+  color: black;
+  display: block;
+  padding: 15px;
+  transition: background 0.3s ease-in-out;
+}
+
+.dropdown-menu li a:hover {
+  background: rgb(229, 240, 247);
+}
+
+.dropdown:hover .dropdown-menu {
+  display: flex;
+  opacity: 0.95;
+  transform: translateY(0);
+}
+
+.dropdown.active .dropdown-menu {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+/* ----- Header End ----- */
+
+/* ----- Main Begin ----- */
+
+#content {
+  flex: 5;
+  display: flex;
+  flex-flow: row;
+  gap: 1rem 2rem;
+}
+
+main {
+  display: flex;
+  gap: 1.5rem;
+  padding: 20px;
+  margin-inline: 20px;
+  /* Background dengan kombinasi warna dan gambar */
+  background: linear-gradient(rgba(186, 216, 235,0.8), rgba(255, 255, 255, 0.8)),
+              url('/submission-wiki-fandom/assets/images/bg-njs.webp');
+  background-size: cover; /* Pastikan gambar menutupi seluruh area */
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+.card {
+  box-shadow: 0 1px 3px 0 rgba(131, 131, 131, 0.2);
+  border-radius: 5px;
+}
+
+.sub-title {
+  background-color: rgb(97, 151, 209);
+  color: aliceblue;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.sub-title h2 {
+  margin: 0;
+}
+
+#slider {
+  overflow: hidden;
+}
+
+#slider figure {
+  position: relative;
+  width: 500%;
+  margin: 0;
+  left: 0;
+  animation: 20s slider infinite;
+}
+
+#slider figure img {
+  float: left;
+  width: 20%;
+}
+
+@keyframes slider {
+  0% {
+    left: 0;
+  }
+
+  20% {
+    left: 0;
+  }
+
+  25% {
+    left: -100%;
+  }
+
+  45% {
+    left: -100%;
+  }
+
+  50% {
+    left: -200%;
+  }
+
+  70% {
+    left: -200%;
+  }
+}
+
+/* ----- About Section Begin ----- */
+
+.about-article {
+  padding-inline: 25px;
+  padding-block: 15px;
+  text-align: center;
+}
+
+/* ----- About Section Ends ----- */
+
+/* ----- Members Section Begin ----- */
+.member-containers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.member-containers img:hover {
+  transition: 0.5s;
+  opacity: 0.8;
+  transform: scale(0.95);
+}
+
+.member-containers td {
+  font-family: 'Corinthia', cursive;
+  font-size: 1.8em;
+  text-align: center;
+}
+
+/* ----- Members Section Ends ----- */
+
+/* ----- Discography Section Begin ----- */
+/* Gaya dasar untuk container tabs */
+.tabs-container {
+  font-family: Arial, sans-serif;
+}
+
+/* Sembunyikan radio button */
+.tabs-container input[type="radio"] {
+  display: none;
+}
+
+/* Gaya untuk label tab */
+.tab-labels {
+  display: flex;
+  border-bottom: 2px solid #ccc;
+}
+
+.tab-labels label {
+  flex: 1;
+  text-align: center;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #555;
+  background-color: #f1f1f1;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Gaya untuk label tab yang aktif */
+.tab-labels label:hover {
+  background-color: #ddd;
+}
+
+/* Gaya untuk label tab yang aktif */
+#tab1:checked~.tab-labels label[for="tab1"],
+#tab2:checked~.tab-labels label[for="tab2"],
+#tab3:checked~.tab-labels label[for="tab3"] {
+  color: #6197d1;
+  background-color: #fff;
+  /* Diperlukan untuk pseudo-element */
+  position: relative;
+}
+
+.content table {
+  margin: auto;
+}
+
+/* Gaya untuk konten tab */
+.tab-content .content {
+  display: none;
+  padding: 20px;
+  border-top: none;
+  align-content: center;
+  overflow-x: auto;
+}
+
+/* Tampilkan konten tab yang sesuai dengan radio button yang dipilih */
+#tab1:checked~.tab-content #content1,
+#tab2:checked~.tab-content #content2,
+#tab3:checked~.tab-content #content3 {
+  display: block;
+}
+
+/* ----- Discography Section Ends ----- */
+
+
+
+/* ----- Aside Section Begin ----- */
+aside {
+  flex: 1;
+}
+
+.aside-card {
+  border: 3px solid #0141D0;
+  border-radius: 5px;
+}
+
+.aside-card h2,
+h3 {
+  padding-block: 12px;
+  padding-inline: 9px;
+  margin: 0;
+  text-align: center;
+  color: white;
+}
+
+.aside-img figure {
+  margin: 0;
+  width: 295px;
+}
+
+.aside-img img {
+  width: 100%;
+}
+
+.profile-title {
+  background: linear-gradient(to right, #0080c8, #fe239e, #ff8803, #fef601, #85d42f);
+}
+
+.aside-table table {
+  width: 100%;
+  border-spacing: 10px;
+  text-align: left;
+  border-collapse: collapse;
+  background-color: hsl(208, 100%, 97%, 0.7);
+}
+
+.aside-table tr {
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-color: rgb(87, 137, 192, 0.5);
+}
+
+.aside-table td {
+  padding-block: 10px;
+  padding-left: 10px;
+}
+
+.aside-members {
+  padding-block: 25px;
+  padding-inline: 10px;
+  text-align: center;
+  background-color: hsl(208, 100%, 97%, 0.7);
+}
+
+.aside-websites {
+  padding-inline: auto;
+  text-align: center
+}
+
+.aside-sns {
+  padding-inline: auto;
+  text-align: justify
+}
+
+a {
+  text-decoration: none;
+  color: #6197d1;
+}
+
+/* ----- Aside Section End ----- */
+
+/* Configuration Changes */
+/* Perangkat dengan lebar layar 1200px dan di bawahnya */
+@media screen and (max-width: 1200px) {
+  main {
+    flex-flow: column nowrap;
+  }
+
+  main aside {
+    align-self: center;
+  }
+}
+
+/* Perangkat dengan lebar layar 768px dan di bawahnya */
+@media screen and (max-width: 768px) {
+  nav ul {
+    justify-content: center;
+  }
+
+  #content {
+    flex-flow: column nowrap;
+  }
+
+  main aside {
+    align-self: stretch;
+  }
+
+  .aside-img figure {
+    width: 100%;
+  }
+}
+
+footer {
+  padding: 20px;
+  color: white;
+  background-color: #6197d1;
+  font-weight: bold;
+  text-align: center;
+}
