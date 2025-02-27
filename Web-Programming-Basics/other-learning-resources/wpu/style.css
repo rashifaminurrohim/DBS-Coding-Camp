@@ -1,0 +1,161 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ddd;
+  line-height: 1.65;
+  padding-bottom: 1000px;
+}
+
+/* Latihan 1 - mengatur kolom */
+.container-satu {
+  width: 800px;
+  margin: 50px auto;
+  background-color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.kolom-utama {
+  flex: 3;
+  order: 2;
+}
+
+.sidebar-satu {
+  flex: 1;
+  order: 1;
+}
+
+.sidebar-dua {
+  flex: 1;
+  order: 3;
+}
+/* Akhir Latihan 1 */
+
+/* Latihan 2 - Flex dan Responsive*/
+.container-dua {
+  max-width: 800px;
+  margin: 50px auto;
+}
+
+.layanan {
+  padding: 20px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.layanan.satu {
+  background-color: rgb(100, 100, 222);
+}
+.layanan.dua {
+  background-color: rgb(118, 226, 118);
+}
+.layanan.tiga {
+  background-color: rgb(240, 118, 118);
+}
+
+/* Latihan 3 */
+
+.container-tiga {
+  max-width: 800px;
+  margin: 50px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.thumnail {
+  width: 50%;
+}
+
+.thumnail img {
+  width: 100%;
+}
+
+/* Akhir Latihan 3 */
+
+/* Latihan 4 */
+.container-empat {
+  width: 800px;
+  margin: 50px auto;
+  display: flex;
+}
+
+.card {
+  margin: 10px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  background-color: #eee;
+  overflow: hidden;
+  flex: 1;
+}
+
+.card.besar {
+  transform: scale(1.12);
+}
+
+.card .header {
+  height: 150px;
+  background-color: #666;
+}
+
+.card .content {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+/* Akhir Latihan 4 */
+
+/* Latihan 5 */
+.container-lima {
+  width: 500px;
+  height: 500px;
+  margin: 50px auto;
+  border: 5px solid black;
+    /* Centering kotak coklat menggunakan flex */
+  display: flex;
+}
+
+.kotak {
+  width: 100px;
+  height: 100px;
+  background-color: brown;
+  color: white;
+  /* centering manual [masalah jika tulisan panjang] */
+  /* centering hello world */
+  /*text-align: center;
+    line-height: 100px;
+  /* centering kotak coklat */
+  /*margin: 250px auto;
+    transform: translateY(-50px); */
+
+  /* Centering kotak coklat menggunakan flex */
+  margin: auto;
+  /* Centering Hello World */
+  display: flex;
+}
+
+.kotak span {
+  margin: auto;
+}
+
+/* Responsive */
+@media ( min-width: 600px ) {
+  .container-dua {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .layanan {
+    width: 30%;
+  }
+
+  .thumnail {
+    width: 25%;
+  }
+}
+
