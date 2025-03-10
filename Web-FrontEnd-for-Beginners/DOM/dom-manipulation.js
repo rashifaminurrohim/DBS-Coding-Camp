@@ -17,3 +17,18 @@ const playButton = buttons[3];
 const playButtonElement = playButton.children[0];
 playButtonElement.setAttribute('type', 'submit');
 
+// Memanipulasi Konten Melalui innerText, innerHTML, dan style.property
+const links = document.getElementById('links');
+/**
+ * innerHTML mengambil semua konten dalam sebuah elemen beserta tag-tag HTML yang ada, 
+ * sedangkan innerText hanya mengambil teks tanpa tag-tag HTML yang ada. 
+ */
+const dicoding = document.getElementById('dicodingLink');
+dicoding.innerText = 'Belajar Programming di Dicoding';
+dicoding.innerHTML = '<i>Belajar Programming di Dicoding</i>';
+
+// Manipulasi Style Konten dengan style.property
+const buttonss = document.getElementsByClassName('button');
+for(const button of buttonss) {
+  button.children[0].style.borderRadius = '6px';
+}
