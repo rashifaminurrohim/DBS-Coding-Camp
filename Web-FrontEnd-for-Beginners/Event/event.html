@@ -20,9 +20,9 @@
     }
   </style>
 </head>
-<body>
+<body onload="welcome()">
   <div class="contents" align="center" hidden>
-    <button id="incrementButton">Tekan Aku :)</button>
+    <button id="incrementButton" onclick="increment()">Tekan Aku :)</button>
     <h3> Kamu sudah menekan tombol diatas sebanyak <span id="count">0</span></h3>
   </div>
 
@@ -32,26 +32,27 @@
       const contents = document.querySelector('.contents');
       contents.removeAttribute('hidden')
     }
-    document.body.onload = welcome;
-
+    
     function increment() {
       let count = document.getElementById('count').innerText++;
       if (count === 6) {
         const hiddenMessage = document.createElement('h4');
         hiddenMessage.innerText = 'Selamat! Anda menemukan hadiah tersembunyi...';
-
+        
         const image = document.createElement('img');
         image.setAttribute(
           'src',
           'https://raw.githubusercontent.com/dicodingacademy/a315-web-pemula-labs/shared-files/catto.jpg',
         );
-
+        
         const contents = document.querySelector('.contents');
         contents.appendChild(hiddenMessage).appendChild(image);
       }
     }
-    document.getElementById('incrementButton').onclick = increment;
 
+    // Event Handler
+    // document.body.onload = welcome;
+    // document.getElementById('incrementButton').onclick = increment;
   </script>
 </body>
 </html>
