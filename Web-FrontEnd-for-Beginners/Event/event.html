@@ -20,19 +20,14 @@
     }
   </style>
 </head>
-<body onload="welcome()">
+<body>
   <div class="contents" align="center" hidden>
-    <button id="incrementButton" onclick="increment()">Tekan Aku :)</button>
+    <button id="incrementButton">Tekan Aku :)</button>
     <h3> Kamu sudah menekan tombol diatas sebanyak <span id="count">0</span></h3>
   </div>
 
   <script>
-    function welcome() {
-      alert('Sim salabim muncullah elemen-elemen HTML!');
-      const contents = document.querySelector('.contents');
-      contents.removeAttribute('hidden')
-    }
-    
+
     function increment() {
       let count = document.getElementById('count').innerText++;
       if (count === 6) {
@@ -50,9 +45,19 @@
       }
     }
 
+    function welcome() {
+      alert('Sim salabim muncullah elemen-elemen HTML!');
+      const contents = document.querySelector('.contents');
+      contents.removeAttribute('hidden')
+    }
+
     // Event Handler
     // document.body.onload = welcome;
     // document.getElementById('incrementButton').onclick = increment;
+
+    // menulis kode menggunakan addEventListener di sini
+    window.addEventListener('load', welcome);
+    document.getElementById('incrementButton').addEventListener('click', increment);
   </script>
 </body>
 </html>
