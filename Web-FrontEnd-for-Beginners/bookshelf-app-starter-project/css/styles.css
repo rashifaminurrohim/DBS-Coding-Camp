@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@font-face {
+  font-family: 'NooplaRegular';
+  src: url(/bookshelf-app-starter-project/assets/font/NooplaRegular.ttf);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  background: #F2EAE1;
+  padding: 24px;
+  color: rgb(96, 66, 68);
+  text-align: center;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'NooplaRegular', sans-serif;
+  color: rgb(96, 66, 68);
+}
+
+main {
+  padding: 24px;
+  background: linear-gradient(rgba(239, 228, 216, 0.8), rgb(231, 219, 205, 0.8)),
+    url('../assets/bg-lib.jpg');
+}
+
+h2, h3 {
+  font-family: "Balsamiq Sans", sans-serif;
+}
+
+.section-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 600px;
+  padding: 20px;
+  margin: 20px auto;
+
+  background: #F2EAE1;
+  border: 3px solid #A19180;
+  border-radius: 16px;
+
+  box-shadow: 0 2px 8px rgba(96, 66, 68, 0.3);
+}
+
+.section-wrapper .add-edit-container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px auto;
+}
+
+label {
+  font-size: 18px;
+}
+
+input[type=text], input[type=number] {
+  font-family: 'Balsamiq Sans', sans-serif;
+  background: #FBF9F7;
+  border: 2px solid #A19180;
+  border-radius: 8px;
+  padding: 8px;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  font-size: 18px;
+  flex: 1;
+}
+
+.search-section {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  border-radius: 16px;
+  margin-top: 16px;
+  padding: 12px 24px 12px 24px;
+  background: #FBF9F7;
+}
+
+.shadow {
+  box-shadow: 0 5px 10px rgba(154, 160, 185, .05), 0 15px 40px rgba(166, 173, 201, .2);
+}
+
+.book-desc {
+  margin-top: 8px;
+}
+.book-desc p {
+  margin-top: 4px;
+  font-size: 16px;
+}
+
+.button-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-block: 0.5rem;
+}
+
+button {
+  border: none;
+  padding: 8px 16px;
+  font-family: 'NooplaRegular', sans-serif;
+  font-size: 16px;
+  width: auto;
+  color: #FBF9F7;
+  border-radius: 8px;
+  box-shadow: 0 0.3rem #dfd9d9;
+  cursor: pointer;
+}
+
+.undo-button {
+  background-color: #58A2B4;
+  box-shadow: 0 0.3rem #307582;
+}
+
+.undo-button:hover{
+  box-shadow: rgba(48, 117, 130, 0.4) 0 4px 8px, rgb(48, 117, 130, 0.3) 0 7px 13px -3px, #307582 0 -3px 0 inset;
+  transform: translateY(-1px);
+}
+
+.edit-button {
+  background-color: #F9CB85;
+  box-shadow: 0 0.3rem rgb(213, 150, 87);
+}
+
+.edit-button:hover{
+  box-shadow: rgba(213, 150, 87, 0.4) 0 4px 8px, rgb(213, 150, 87, 0.3) 0 7px 13px -3px, rgb(213, 150, 87) 0 -3px 0 inset;
+  transform: translateY(-1px);
+}
+
+.delete-button {
+  background-color: #F36E72;
+  box-shadow: 0 0.3rem rgb(217, 73, 76);
+}
+
+.delete-button:hover{
+  box-shadow: rgba(217, 73, 76, 0.4) 0 4px 8px, rgb(217, 73, 76, 0.3) 0 7px 13px -3px, rgb(217, 73, 76) 0 -3px 0 inset;
+  transform: translateY(-1px);
+}
+
+#searchSubmit {
+  background-color: rgb(149, 136, 188);
+  box-shadow: 0 0.3rem rgb(116, 105, 156);
+}
+
+#searchSubmit:hover{
+  box-shadow: rgba(116, 105, 156, 0.4) 0 4px 8px, rgb(116, 105, 156, 0.3) 0 7px 13px -3px, rgb(116, 105, 156) 0 -3px 0 inset;
+  transform: translateY(-1px);
+}
+
+#bookFormSubmit {
+  background-color: #80B982;
+  box-shadow: 0 0.3rem rgb(88, 144, 91);
+}
+
+#bookFormSubmit:hover{
+  box-shadow: rgba(88, 144, 91, 0.4) 0 4px 8px, rgb(88, 144, 91, 0.3) 0 7px 13px -3px, rgb(88, 144, 91) 0 -3px 0 inset;
+  transform: translateY(-1px);
+}
+
+button:hover{
+  box-shadow: rgba(45, 35, 66, 0.1) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-1px);
+}
+
+footer {
+  padding: 24px;
+  font-weight: bold;
+  font-family: 'Balsamiq Sans', sans-serif;
+  color: rgb(96, 66, 68);
+  background-color: #F2EAE1;
+  text-align: center;
+}
