@@ -1,7 +1,16 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'production',
+  devServer: {
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false
+      },
+    },
+  },
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -9,9 +18,9 @@ module.exports = {
   },
   module: {
     rules: [
-      // style and css loader
+      /* style and css loader */
       {
-        test: /\.css/,
+        test: /\.css$/,
         use: [
           {
             loader: 'style-loader',
@@ -21,7 +30,8 @@ module.exports = {
           },
         ],
       },
-      // babel loader
+
+      /* babel loader */
       {
         test: /\.js$/,
         exclude: '/node_modules/',
@@ -34,6 +44,14 @@ module.exports = {
           },
         ],
       },
-    ]
+    ],
   },
+  /* plugin */
+  plugins: [
+    /* HTML Webpack Plugin */
+    new HtmlWebpackPlugin({
+      template: './src/template.html',
+      filename: 'index.html',
+    }),
+  ],
 };
