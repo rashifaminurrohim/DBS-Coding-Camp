@@ -1,46 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sport Club App</title>
 
-    <!-- Own Styles -->
-    <link rel="icon" href="./src/public/favicon.png" sizes="512x512" />
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sport Club App</title>
 
-    <!-- Favicons -->
-    <link rel="stylesheet" href="./src/styles/style.css" />
-  </head>
-  <body>
-    <header>
-      <app-bar></app-bar>
-    </header>
+  <!-- Favicons -->
+  <link rel="icon" href="favicon.png" sizes="48x48" />
+</head>
 
-    <main>
-      <div class="container">
-        <section id="club" class="club">
-          <div class="title-section">
-            <h2>Sport Club List</h2>
-          </div>
+<body>
+  <header>
+    <app-bar></app-bar>
+  </header>
 
-          <div id="searchBarContainer" class="search-bar-container">
-            <search-bar></search-bar>
-          </div>
+  <main>
+    <div class="container">
+      <section id="club" class="club">
+        <div class="title-section">
+          <h2>Sport Club List</h2>
+        </div>
 
-          <div id="clubListContainer" class="club-list-container">
-            <div class="placeholder query-waiting">Waiting for search keyword</div>
-            <div class="placeholder search-loading">Loading</div>
+        <div id="searchBarContainer" class="search-bar-container">
+          <search-bar></search-bar>
+        </div>
 
-            <club-list></club-list>
-          </div>
-        </section>
-      </div>
-    </main>
+        <div id="clubListContainer" class="club-list-container">
+          <div class="placeholder query-waiting">Waiting for search keyword</div>
+          <div class="placeholder search-loading">Loading</div>
 
-    <footer>
-      <footer-bar></footer-bar>
-    </footer>
+          <club-list></club-list>
+        </div>
+      </section>
+    </div>
+  </main>
 
-    <script type="module" src="./src/app.js"></script>
-  </body>
+  <footer>
+    <footer-bar></footer-bar>
+  </footer>
+</body>
+
 </html>
