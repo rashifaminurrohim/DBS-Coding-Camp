@@ -3,29 +3,64 @@ function main() {
 
   const getBook = () => {
     // tuliskan kode di sini!
-    // membuat instance dari XMLHttpRequest
-    const xhr = new XMLHttpRequest();
 
-    // menetapkan callback jika response sukses dan error
-    xhr.onload = function () {
-      const responseJson = JSON.parse(this.responseText);
-
+    fetch(`${baseUrl}/list`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((responseJson) => {
       if (responseJson.error) {
         showResponseMessage(responseJson.message);
       } else {
         renderAllBooks(responseJson.books);
       }
-    };
+    })
+    .catch((error) => {
+      showResponseMessage(error);
+    });
 
-    xhr.onerror = function () {
-      showResponseMessage();
-    }
+    /** 
+     * *gaya penulisan asynchronous pada promise
+     * const getBook = async () => {
+        try {
+          const response = await fetch(`${baseUrl}/list`);
+          const responseJson = await response.json();
+          
+          if (responseJson.error) {
+            showResponseMessage(responseJson.message);
+          } else {
+            renderAllBooks(responseJson.books);
+          }
+        } catch (error) {
+          showResponseMessage(error);
+        }
+      };
+     */
+    
 
-    // membuat GET request dan menetapkan target URL
-    xhr.open('GET', `${baseUrl}/list`);
+    // // membuat instance dari XMLHttpRequest
+    // const xhr = new XMLHttpRequest();
 
-    // mengirimkan request
-    xhr.send();
+    // // menetapkan callback jika response sukses dan error
+    // xhr.onload = function () {
+    //   const responseJson = JSON.parse(this.responseText);
+
+    //   if (responseJson.error) {
+    //     showResponseMessage(responseJson.message);
+    //   } else {
+    //     renderAllBooks(responseJson.books);
+    //   }
+    // };
+
+    // xhr.onerror = function () {
+    //   showResponseMessage();
+    // }
+
+    // // membuat GET request dan menetapkan target URL
+    // xhr.open('GET', `${baseUrl}/list`);
+
+    // // mengirimkan request
+    // xhr.send();
   };
 
 
