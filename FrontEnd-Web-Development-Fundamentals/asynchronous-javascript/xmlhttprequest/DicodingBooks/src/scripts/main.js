@@ -136,29 +136,71 @@ function main() {
 
   const updateBook = (book) => {
     // tuliskan kode di sini!
-    // Membuat instance dari XMLHttpRequest
-    const xhr = new XMLHttpRequest();
 
-    // Menetapkan callback jika response sukses dan error
-    xhr.onload = function () {
-      const responseJson = JSON.parse(this.responseText);
+    fetch(`${baseUrl}/edit/${book.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type' : 'application/json',
+        'X-Auth-Token' : '12345'
+      },
+      body: JSON.stringify(book)
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((responseJson) => {
       showResponseMessage(responseJson.message);
       getBook();
-    };
+    })
+    .catch((error) => {
+      showResponseMessage(error);
+    })
+    
+    /**
+     * * Gaya penulisan Asynchronous pada promise
+        const updateBook = async (book) => {
+          try {
+            const options = {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': '12345'
+              },
+              body: JSON.stringify(book),
+            };
+            const response = await fetch(`${baseUrl}/edit/${book.id}`, options);
+            const responseJson = await response.json();
+            showResponseMessage(responseJson.message);
+            getBook();
+          } catch (error) {
+            showResponseMessage(error);
+          }
+        };
+     */
 
-    xhr.onerror = function () {
-      showResponseMessage();
-    };
+    // // Membuat instance dari XMLHttpRequest
+    // const xhr = new XMLHttpRequest();
 
-    // Membuat PUT request dan menetapkan target URL
-    xhr.open('PUT', `${baseUrl}/edit/${book.id}`);
+    // // Menetapkan callback jika response sukses dan error
+    // xhr.onload = function () {
+    //   const responseJson = JSON.parse(this.responseText);
+    //   showResponseMessage(responseJson.message);
+    //   getBook();
+    // };
 
-    // Menetapkan properti Content-Type dan X-Auth-Token pada Header request
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.setRequestHeader('X-Auth-Token', '12345');
+    // xhr.onerror = function () {
+    //   showResponseMessage();
+    // };
 
-    // Mengirimkan request dan menyisipkan JSON.stringify(book) pada body
-    xhr.send(JSON.stringify(book));
+    // // Membuat PUT request dan menetapkan target URL
+    // xhr.open('PUT', `${baseUrl}/edit/${book.id}`);
+
+    // // Menetapkan properti Content-Type dan X-Auth-Token pada Header request
+    // xhr.setRequestHeader('Content-Type', 'application/json');
+    // xhr.setRequestHeader('X-Auth-Token', '12345');
+
+    // // Mengirimkan request dan menyisipkan JSON.stringify(book) pada body
+    // xhr.send(JSON.stringify(book));
   };
 
   const removeBook = (bookId) => {
