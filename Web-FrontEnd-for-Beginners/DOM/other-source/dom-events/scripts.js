@@ -36,7 +36,7 @@ const p1 = document.querySelector('.p1');
 // }
 
 // addEventListener
-p1.addEventListener('click', function () {
+p1.addEventListener('click', () => {
   p1.style.backgroundColor = 'lightblue';
 });
 p1.addEventListener('dblclick', function () {
