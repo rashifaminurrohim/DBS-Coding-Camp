@@ -23,7 +23,7 @@ class NoteForm extends HTMLElement {
       }
 
       h2 {
-        color: black;
+        color: blaxk;
         text-align: center;
         margin-bottom: 16px;
       }
