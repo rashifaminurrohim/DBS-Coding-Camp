@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notees</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header class="header">
+      <h1>Notes</h1>
+      <nav class="nav-list">
+        <ul>
+          <li><p>Archieve</p></li>
+          <li><button id="add-notes-btn">+</button></li>
+        </ul>
+      </nav>
+  </header>
+
+  <main class="main-content">
+    <section class="form-section">
+      <h2>Form Catatan Baru</h2>
+      <form id="note-form">
+        <label for="title">Judul:</label>
+        <input type="text" id="title" placeholder="Judul Catatan" required />
+        
+        <label for="body">Isi:</label>
+        <textarea id="body" placeholder="Isi Catatan" required></textarea>
+
+        <button type="submit">Simpan Catatan</button>
+      </form>
+    </section>
+    <section class="notes-section">
+      <div class="note">
+        <h3>${this._note.title}</h3>
+        <p>${this._note.body}</p>
+        <small>${new Date(this._note.createdAt).toLocaleDateString()}</small>
+      </div>
+      <div class="note">
+        <h3>Title</h3>
+        <p>Desc</p>
+        <small>Date</small>
+      </div>
+    </section>
+  </main>
+  <script src="test.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  justify-items: end;
+  padding: 1rem;
+}
+
+nav ul{
+  display: flex;
+  gap: 1rem; /* jarak antar item */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr; /* Form tersembunyi awalnya */
+  transition: grid-template-columns 0.4s ease;
+}
+
+.main-content.show {
+  grid-template-columns: 30% 1fr; /* Form muncul selebar 30% */
+}
+
+.main-content.show .form-section {
+  display: grid;
+}
+
+.main-content.show .form-section #note-form {
+  display: grid;
+}
+
+.form-section {
+  display: none;
+  background-color: #ffcc80;
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.notes-section {
+  display: grid;
+  background-color: #eee;
+  
+}
+
+.note {
+  background: #ffcc80;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 8px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
