@@ -5,6 +5,7 @@ class NoteItem extends HTMLElement {
     title: '',
     body: '',
     createdAt: '',
+    archived: false,
   };
 
   constructor() {
@@ -26,13 +27,26 @@ class NoteItem extends HTMLElement {
     return this._note;
   }
 
+  set onDelete(callback) {
+    this._onDelete = callback;
+  }
+
+  set onArchiveToggle(callback) {
+    this._onArchiveToggle = callback;
+  }
+
+  _formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+  }
+
   _updateStyle() {
     this._style.textContent = `
       :host {
         display: block;
       }
       .note {
-        background: #ffcc80;
+        background: #E0DEDE;
         padding: 16px;
         border-radius: 8px;
         margin: 8px;
@@ -44,6 +58,34 @@ class NoteItem extends HTMLElement {
       .note p {
         margin: 0;
       }
+
+      .note-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .note-footer small {
+        color: #555;
+        align-self: end; 
+      }
+      .note-footer .actions {
+        display: flex;
+        gap: 8px;
+      }
+      .note-footer button {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .note-footer button.delete {
+        background-color: #e74c3c;
+        color: white;
+      }
+      .note-footer button.archive {
+        background-color: #3498db;
+        color: white;
+      }
     `;
   }
 
@@ -52,13 +94,30 @@ class NoteItem extends HTMLElement {
     this._updateStyle();
     this._shadowRoot.appendChild(this._style);
 
+    const formattedDate = this._formatDate(this._note.createdAt);
+
     this._shadowRoot.innerHTML += `
       <div class="note">
         <h3>${this._note.title}</h3>
         <p>${this._note.body}</p>
-        <small>${new Date(this._note.createdAt).toLocaleDateString()}</small>
+        <div class="note-footer">
+          <small>${formattedDate}</small>
+          <div class="actions">
+            <button class="archive">${this._note.archived ? 'Unarchive' : 'Archive'}</button>
+            <button class="delete">Delete</button>
+          </div>
+        </div>
       </div>
     `;
+
+    this._shadowRoot.querySelector('.delete').addEventListener('click', () => {
+      if (this._onDelete) this._onDelete(this._note.id);
+    });
+
+    this._shadowRoot.querySelector('.archive').addEventListener('click', () => {
+      if (this._onArchiveToggle) this._onArchiveToggle(this._note.id);
+    });
+    
   }
 }
 

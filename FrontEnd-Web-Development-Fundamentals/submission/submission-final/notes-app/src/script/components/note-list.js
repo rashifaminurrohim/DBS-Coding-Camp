@@ -19,11 +19,13 @@ class NoteList extends HTMLElement {
     this._style.textContent = `
       :host {
         display: block;
-      }
-      .list {
-        display: grid;
-        grid-template-columns: ${'1fr '.repeat(this._column)};
+        }
+        .list {
+          display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: ${this._gutter}px;
+        margin-left: 1em;
+        margin-top: 1em;
       }
     `;
   }

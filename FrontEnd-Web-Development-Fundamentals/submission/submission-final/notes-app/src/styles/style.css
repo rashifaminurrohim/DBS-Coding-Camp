@@ -1,12 +1,52 @@
 * {
   padding: 0;
   margin: 0;
-
   box-sizing: border-box;
 }
 
-main {
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+}
+
+#main-content {
   display: grid;
-  place-items: center;
+  grid-template-columns: 1fr ;
+  transition: grid-template-columns 0.4s ease;
   row-gap: 1em;
+  min-height: 100vh;
+}
+
+#main-content.show {
+  grid-template-columns: 1fr 3fr;
+}
+
+#main-content.show .form-section {
+  display: grid;
+}
+
+.form-section {
+  display: none;
+
+}
+
+note-list {
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1fr;
 }

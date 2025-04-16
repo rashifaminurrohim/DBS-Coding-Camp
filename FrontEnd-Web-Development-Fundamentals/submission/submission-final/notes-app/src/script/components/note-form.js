@@ -15,15 +15,14 @@ class NoteForm extends HTMLElement {
         display: grid;
         width: 100%;
         grid-template-columns: 1fr;
-        grid-gap: .8em;
-        background: #ffcc80;
-        max-width: 600px;
+        background: #F5F5F5;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         border-radius: 4px;
+        gap: 8px;
       }
 
       h2 {
-        color: blaxk;
+        color: black;
         text-align: center;
         margin-bottom: 16px;
       }
@@ -41,10 +40,11 @@ class NoteForm extends HTMLElement {
       input, textarea {
         grid-column: controls;
         grid-row: auto;
-        border: none;
         margin-inline: 1em;
         padding: 1em;
-        max-width: 560px;
+        resize: vertical;
+        max-height: 50vh;
+        max-width: 100%;
       }
 
       textarea {
@@ -77,6 +77,7 @@ class NoteForm extends HTMLElement {
     this._shadowRoot.appendChild(this._style);
 
     this._shadowRoot.innerHTML += `
+    <div class="container">
       <h2>Form Catatan Baru</h2>
       <form id="note-form">
         <label for="title">Judul:</label>
@@ -87,6 +88,7 @@ class NoteForm extends HTMLElement {
 
         <button type="submit">Simpan Catatan</button>
       </form>
+    </div>
     `;
 
     this._addEventListeners();
