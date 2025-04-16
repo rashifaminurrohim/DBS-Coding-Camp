@@ -1,3 +1,4 @@
+import '../styles/style.css';
 import './components/app-bar.js';
 import './components/note-item.js';
 import './components/note-list.js';
