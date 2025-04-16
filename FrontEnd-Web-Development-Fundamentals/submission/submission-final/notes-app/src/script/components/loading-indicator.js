@@ -4,8 +4,8 @@ class LoadingIndicator extends HTMLElement {
 
   constructor() {
     super();
-    this._shadowRoot = this.attachShadow({ mode: 'open'});
-    this._style = document.createElement('style');
+    this._shadowRoot = this.attachShadow({ mode: "open" });
+    this._style = document.createElement("style");
     this._updateStyle();
     this.render();
   }
@@ -43,18 +43,17 @@ class LoadingIndicator extends HTMLElement {
   }
 
   _emptyContent() {
-    this._shadowRoot.innerHTML = '';
+    this._shadowRoot.innerHTML = "";
   }
 
   render() {
     this._emptyContent();
     this._shadowRoot.appendChild(this._style);
 
-    const loader = document.createElement('div');
-    loader.classList.add('loader');
+    const loader = document.createElement("div");
+    loader.classList.add("loader");
     this._shadowRoot.appendChild(loader);
   }
-  
 }
 
-customElements.define('loading-indicator', LoadingIndicator);
+customElements.define("loading-indicator", LoadingIndicator);

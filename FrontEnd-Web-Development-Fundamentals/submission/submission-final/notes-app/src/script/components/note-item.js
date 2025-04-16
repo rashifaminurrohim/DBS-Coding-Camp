@@ -2,20 +2,20 @@ class NoteItem extends HTMLElement {
   _shadowRoot = null;
   _style = null;
   _note = {
-    title: '',
-    body: '',
-    createdAt: '',
+    title: "",
+    body: "",
+    createdAt: "",
     archived: false,
   };
 
   constructor() {
     super();
-    this._shadowRoot = this.attachShadow({ mode: 'open' });
-    this._style = document.createElement('style');
+    this._shadowRoot = this.attachShadow({ mode: "open" });
+    this._style = document.createElement("style");
   }
 
   _emptyContent() {
-    this._shadowRoot.innerHTML = '';
+    this._shadowRoot.innerHTML = "";
   }
 
   set note(value) {
@@ -36,8 +36,8 @@ class NoteItem extends HTMLElement {
   }
 
   _formatDate(dateString) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('en-US', options);
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString("en-US", options);
   }
 
   _updateStyle() {
@@ -103,22 +103,21 @@ class NoteItem extends HTMLElement {
         <div class="note-footer">
           <small>${formattedDate}</small>
           <div class="actions">
-            <button class="archive">${this._note.archived ? 'Unarchive' : 'Archive'}</button>
+            <button class="archive">${this._note.archived ? "Unarchive" : "Archive"}</button>
             <button class="delete">Delete</button>
           </div>
         </div>
       </div>
     `;
 
-    this._shadowRoot.querySelector('.delete').addEventListener('click', () => {
+    this._shadowRoot.querySelector(".delete").addEventListener("click", () => {
       if (this._onDelete) this._onDelete(this._note.id);
     });
 
-    this._shadowRoot.querySelector('.archive').addEventListener('click', () => {
+    this._shadowRoot.querySelector(".archive").addEventListener("click", () => {
       if (this._onArchiveToggle) this._onArchiveToggle(this._note.id);
     });
-    
   }
 }
 
-customElements.define('note-item', NoteItem);
+customElements.define("note-item", NoteItem);

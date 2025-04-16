@@ -5,8 +5,8 @@ class AppBar extends HTMLElement {
   constructor() {
     super();
 
-    this._shadowRoot = this.attachShadow({ mode: 'open' });
-    this._style = document.createElement('style');
+    this._shadowRoot = this.attachShadow({ mode: "open" });
+    this._style = document.createElement("style");
   }
 
   _updateStyle() {
@@ -49,7 +49,7 @@ class AppBar extends HTMLElement {
   }
 
   _emptyContent() {
-    this._shadowRoot.innerHTML = '';
+    this._shadowRoot.innerHTML = "";
   }
 
   connectedCallback() {
@@ -84,30 +84,33 @@ class AppBar extends HTMLElement {
 
   toggleForm() {
     // Tambahkan di sini: emit event ke luar
-    this._shadowRoot.querySelector('#add-notes-btn')
-    .addEventListener('click', () => {
-      // dispatch event ke DOM global
-      this.dispatchEvent(new CustomEvent('toggleForm', {
-        bubbles: true,
-        composed: true
-      }));
-    });
+    this._shadowRoot
+      .querySelector("#add-notes-btn")
+      .addEventListener("click", () => {
+        // dispatch event ke DOM global
+        this.dispatchEvent(
+          new CustomEvent("toggleForm", {
+            bubbles: true,
+            composed: true,
+          }),
+        );
+      });
   }
 
   filterNotes() {
-    const select = this._shadowRoot.querySelector('#archive-selection');
-    select.addEventListener('change', (event) => {
-      this.dispatchEvent(new CustomEvent('filterNotes', {
-        bubbles: true,
-        composed: true,
-        detail: {
-          filter: event.target.value
-        }
-      }));
+    const select = this._shadowRoot.querySelector("#archive-selection");
+    select.addEventListener("change", (event) => {
+      this.dispatchEvent(
+        new CustomEvent("filterNotes", {
+          bubbles: true,
+          composed: true,
+          detail: {
+            filter: event.target.value,
+          },
+        }),
+      );
     });
   }
-
-
 }
 
-customElements.define('app-bar', AppBar);
+customElements.define("app-bar", AppBar);

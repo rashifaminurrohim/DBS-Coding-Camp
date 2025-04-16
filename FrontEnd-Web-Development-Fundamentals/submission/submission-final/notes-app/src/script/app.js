@@ -1,31 +1,38 @@
-import '../styles/style.css';
-import './components/app-bar.js';
-import './components/note-item.js';
-import './components/note-list.js';
-import './components/note-form.js';
-import './components/loading-indicator.js';
+import "../styles/style.css";
+import "./components/app-bar.js";
+import "./components/note-item.js";
+import "./components/note-list.js";
+import "./components/note-form.js";
+import "./components/loading-indicator.js";
 
-import { notesApi } from './data/remote/notes.api.js';
-const { getNotes, createNote, deleteNote, archiveNote, getArchivedNotes, unarchiveNote, getAllNotes } = notesApi();
+import { notesApi } from "./data/remote/notes.api.js";
+const {
+  getNotes,
+  createNote,
+  deleteNote,
+  archiveNote,
+  getArchivedNotes,
+  unarchiveNote,
+  getAllNotes,
+} = notesApi();
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const mainContent = document.getElementById('main-content');
-  const noteSection = document.querySelector('.note-section');
+  const mainContent = document.getElementById("main-content");
+  const noteSection = document.querySelector(".note-section");
   const noteList = document.createElement("note-list");
-  let currentFilter = 'all';
+  let currentFilter = "all";
 
-
-  const loadingIndicator = document.createElement('loading-indicator');
-  loadingIndicator.style.display = 'none';
+  const loadingIndicator = document.createElement("loading-indicator");
+  loadingIndicator.style.display = "none";
   document.body.appendChild(loadingIndicator);
 
   function showLoading() {
-    loadingIndicator.style.display = 'flex';
-  };
+    loadingIndicator.style.display = "flex";
+  }
 
   function hideLoading() {
-    loadingIndicator.style.display = 'none';
-  };
+    loadingIndicator.style.display = "none";
+  }
 
   async function withLoading(callback) {
     showLoading();
@@ -34,49 +41,48 @@ document.addEventListener("DOMContentLoaded", async () => {
     } finally {
       hideLoading();
     }
-  };
+  }
 
-  function renderNotes(notes, emptyMessage = 'No notes found') {
-    noteList.innerHTML = '';
+  function renderNotes(notes, emptyMessage = "No notes found") {
+    noteList.innerHTML = "";
 
     if (!notes || notes.length === 0) {
       noteList.innerHTML = `<p style="grid-column: 1 / -1; text-align: center;">${emptyMessage}</p>`;
       return;
     }
 
-    notes.forEach(note => {
+    notes.forEach((note) => {
       const noteItem = createNoteItem(note);
       noteList.appendChild(noteItem);
     });
-  };
-  
+  }
 
-  const appBar = document.querySelector('app-bar');
-  appBar.addEventListener('toggleForm', () => {
-    mainContent.classList.toggle('show');
+  const appBar = document.querySelector("app-bar");
+  appBar.addEventListener("toggleForm", () => {
+    mainContent.classList.toggle("show");
   });
 
-  appBar.addEventListener('filterNotes', async (event) => {
+  appBar.addEventListener("filterNotes", async (event) => {
     currentFilter = event.detail.filter;
 
     const result = await withLoading(async () => {
-      if (currentFilter === 'archive') {
+      if (currentFilter === "archive") {
         return await getArchivedNotes();
-      } else if (currentFilter === 'all') {
+      } else if (currentFilter === "all") {
         return await getAllNotes();
       } else {
         return await getNotes();
       }
     });
 
-    if(!result.success) {
+    if (!result.success) {
       alert(result.message);
-      return; 
+      return;
     }
 
     let filteredNotes = result.data;
-    if (currentFilter === 'unarchive') {
-      filteredNotes = filteredNotes.filter(note => !note.archived);
+    if (currentFilter === "unarchive") {
+      filteredNotes = filteredNotes.filter((note) => !note.archived);
     }
 
     renderNotes(filteredNotes);
@@ -88,7 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // delete
     noteItem.onDelete = async (noteId) => {
-      const confirmDelete = confirm('Are you sure want to delete this note?');
+      const confirmDelete = confirm("Are you sure want to delete this note?");
       if (confirmDelete) {
         const result = await withLoading(() => deleteNote(noteId));
         if (result.success) {
@@ -102,7 +108,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // archive & unarchive
     noteItem.onArchiveToggle = async (noteId) => {
-      let result = await withLoading( async () => {
+      let result = await withLoading(async () => {
         if (note.archived) {
           return await unarchiveNote(noteId);
         } else {
@@ -112,9 +118,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (result.success) {
         alert(result.message);
-        note.archived = !note.archived; 
+        note.archived = !note.archived;
         noteItem.note = { ...note };
-        if (currentFilter !== 'all') {
+        if (currentFilter !== "all") {
           noteItem.remove();
         }
       } else {
@@ -123,10 +129,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     return noteItem;
-  };
+  }
 
   // getAll
-  const result = await withLoading(()=> getAllNotes());
+  const result = await withLoading(() => getAllNotes());
   if (result.success) {
     renderNotes(result.data);
   } else {
@@ -138,9 +144,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   noteForm.addEventListener("newNoteAdded", async (event) => {
     const { title, body } = event.detail;
     const result = await withLoading(() => createNote(title, body));
-    if(result.success) {
+    if (result.success) {
       const noteItem = createNoteItem(result.data);
-      if (currentFilter === 'all' || currentFilter === 'unarchive') {
+      if (currentFilter === "all" || currentFilter === "unarchive") {
         noteList.appendChild(noteItem);
       }
     } else {
@@ -148,5 +154,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
   noteSection.appendChild(noteList);
-
 });

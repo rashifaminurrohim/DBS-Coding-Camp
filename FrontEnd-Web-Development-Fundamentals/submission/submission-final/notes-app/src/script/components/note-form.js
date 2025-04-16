@@ -4,8 +4,8 @@ class NoteForm extends HTMLElement {
 
   constructor() {
     super();
-    this._shadowRoot = this.attachShadow({ mode: 'open' });
-    this._style = document.createElement('style');
+    this._shadowRoot = this.attachShadow({ mode: "open" });
+    this._style = document.createElement("style");
     this.render();
   }
 
@@ -68,7 +68,7 @@ class NoteForm extends HTMLElement {
   }
 
   _emptyContent() {
-    this._shadowRoot.innerHTML = '';
+    this._shadowRoot.innerHTML = "";
   }
 
   render() {
@@ -95,25 +95,25 @@ class NoteForm extends HTMLElement {
   }
 
   _addEventListeners() {
-    const form = this._shadowRoot.querySelector('#note-form');
+    const form = this._shadowRoot.querySelector("#note-form");
 
-    form.addEventListener('submit', (event) => {
+    form.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      const title = this._shadowRoot.querySelector('#title').value;
-      const body = this._shadowRoot.querySelector('#body').value;
+      const title = this._shadowRoot.querySelector("#title").value;
+      const body = this._shadowRoot.querySelector("#body").value;
 
       if (!title || !body) {
-        alert('Harap isi semua kolom!');
+        alert("Harap isi semua kolom!");
         return;
       }
 
-      const noteData = { title, body, createdAt: new Date().toDateString()};
-      this.dispatchEvent(new CustomEvent('newNoteAdded', { detail: noteData }));
+      const noteData = { title, body, createdAt: new Date().toDateString() };
+      this.dispatchEvent(new CustomEvent("newNoteAdded", { detail: noteData }));
 
       form.reset();
     });
   }
 }
 
-customElements.define('note-form', NoteForm);
+customElements.define("note-form", NoteForm);
