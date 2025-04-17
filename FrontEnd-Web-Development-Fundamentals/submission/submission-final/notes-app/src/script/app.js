@@ -4,7 +4,7 @@ import "./components/note-item.js";
 import "./components/note-list.js";
 import "./components/note-form.js";
 import "./components/loading-indicator.js";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import { gsap } from "gsap";
 import { notesApi } from "./data/remote/notes.api.js";
 const {
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       gsap.fromTo(
         formSection,
         { opacity: 0.6, x: -150 },
-        { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }
+        { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" },
       );
     } else {
       formSection.style.display = "none";
@@ -95,9 +95,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (!result.success) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops!',
-        text: `${result.message}`
+        icon: "error",
+        title: "Oops!",
+        text: `${result.message}`,
       });
       return;
     }
@@ -117,28 +117,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     // delete
     noteItem.onDelete = async (noteId) => {
       Swal.fire({
-        title: 'Are you sure?',
-        text: 'This note will be deleted permanently.',
-        icon: 'warning',
+        title: "Are you sure?",
+        text: "This note will be deleted permanently.",
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'Cancel',
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "Cancel",
       }).then(async (result) => {
         if (result.isConfirmed) {
           const result = await withLoading(() => deleteNote(noteId));
           if (result.success) {
             noteItem.remove();
             Swal.fire({
-              icon: 'success',
-              title: 'Success!',
+              icon: "success",
+              title: "Success!",
               text: `${result.message}`,
             });
           } else {
             Swal.fire({
-              icon: 'error',
-              title: 'Oops!',
+              icon: "error",
+              title: "Oops!",
               text: `${result.message}`,
             });
           }
@@ -158,9 +158,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (result.success) {
         Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: `${result.message}`
+          icon: "success",
+          title: "Success!",
+          text: `${result.message}`,
         });
         note.archived = !note.archived;
         noteItem.note = { ...note };
@@ -169,9 +169,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       } else {
         Swal.fire({
-          icon: 'error',
-          title: 'Oops!',
-          text: `${result.message}`
+          icon: "error",
+          title: "Oops!",
+          text: `${result.message}`,
         });
       }
     };
@@ -185,9 +185,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderNotes(result.data);
   } else {
     Swal.fire({
-      icon: 'error',
-      title: 'Oops!',
-      text: `${result.message}`
+      icon: "error",
+      title: "Oops!",
+      text: `${result.message}`,
     });
   }
 
@@ -198,9 +198,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const result = await withLoading(() => createNote(title, body));
     if (result.success) {
       Swal.fire({
-        icon: 'success',
-        title: 'Success!',
-        text: 'Note created'
+        icon: "success",
+        title: "Success!",
+        text: "Note created",
       });
       const noteItem = createNoteItem(result.data);
       if (currentFilter === "all" || currentFilter === "unarchive") {
@@ -208,9 +208,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     } else {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops!',
-        text: 'An error occurred while adding a note.'
+        icon: "error",
+        title: "Oops!",
+        text: "An error occurred while adding a note.",
       });
     }
   });
