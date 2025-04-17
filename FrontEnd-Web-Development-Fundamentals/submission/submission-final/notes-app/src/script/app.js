@@ -4,7 +4,7 @@ import "./components/note-item.js";
 import "./components/note-list.js";
 import "./components/note-form.js";
 import "./components/loading-indicator.js";
-
+import Swal from 'sweetalert2';
 import { notesApi } from "./data/remote/notes.api.js";
 const {
   getNotes,
@@ -76,7 +76,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     if (!result.success) {
-      alert(result.message);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops!',
+        text: `${result.message}`
+      });
       return;
     }
 
@@ -94,16 +98,34 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // delete
     noteItem.onDelete = async (noteId) => {
-      const confirmDelete = confirm("Are you sure want to delete this note?");
-      if (confirmDelete) {
-        const result = await withLoading(() => deleteNote(noteId));
-        if (result.success) {
-          noteItem.remove();
-          alert(result.message);
-        } else {
-          alert(result.message);
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'This note will be deleted permanently.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const result = await withLoading(() => deleteNote(noteId));
+          if (result.success) {
+            noteItem.remove();
+            Swal.fire({
+              icon: 'success',
+              title: 'Success!',
+              text: `${result.message}`,
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops!',
+              text: `${result.message}`,
+            });
+          }
         }
-      }
+      });
     };
 
     // archive & unarchive
@@ -117,14 +139,22 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
       if (result.success) {
-        alert(result.message);
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: `${result.message}`
+        });
         note.archived = !note.archived;
         noteItem.note = { ...note };
         if (currentFilter !== "all") {
           noteItem.remove();
         }
       } else {
-        alert(result.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops!',
+          text: `${result.message}`
+        });
       }
     };
 
@@ -136,7 +166,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (result.success) {
     renderNotes(result.data);
   } else {
-    alert(result.message);
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops!',
+      text: `${result.message}`
+    });
   }
 
   const noteForm = document.querySelector("note-form");
@@ -145,12 +179,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     const { title, body } = event.detail;
     const result = await withLoading(() => createNote(title, body));
     if (result.success) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Note created'
+      });
       const noteItem = createNoteItem(result.data);
       if (currentFilter === "all" || currentFilter === "unarchive") {
         noteList.appendChild(noteItem);
       }
     } else {
-      alert(result.message);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops!',
+        text: 'An error occurred while adding a note.'
+      });
     }
   });
   noteSection.appendChild(noteList);
