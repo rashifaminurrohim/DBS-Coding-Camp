@@ -45,6 +45,16 @@ class AppBar extends HTMLElement {
         font-size: 1.5rem;
         cursor: pointer;
       }
+
+      button .icon {
+        display: inline-block;
+        transition: transform 0.3s ease;
+        transform: rotate(0deg); /* <- tambahkan ini */
+      }
+
+      button.rotate .icon{
+        transform: rotate(45deg);
+      }
     `;
   }
 
@@ -75,7 +85,7 @@ class AppBar extends HTMLElement {
                 <option id="unarchieve" value="unarchive">Unarchieve</option>
               </select>
             </li>
-            <li><button id="add-notes-btn">+</button></li>
+            <li><button id="add-notes-btn"><span class="icon">+</span></button></li>
           </ul>
         </nav>
       </div>
@@ -84,9 +94,11 @@ class AppBar extends HTMLElement {
 
   toggleForm() {
     // Tambahkan di sini: emit event ke luar
+    const btn = this._shadowRoot.querySelector("#add-notes-btn");
     this._shadowRoot
       .querySelector("#add-notes-btn")
       .addEventListener("click", () => {
+        btn.classList.toggle("rotate");
         // dispatch event ke DOM global
         this.dispatchEvent(
           new CustomEvent("toggleForm", {
