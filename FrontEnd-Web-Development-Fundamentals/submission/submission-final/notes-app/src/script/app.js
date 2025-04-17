@@ -5,6 +5,7 @@ import "./components/note-list.js";
 import "./components/note-form.js";
 import "./components/loading-indicator.js";
 import Swal from 'sweetalert2';
+import { gsap } from "gsap";
 import { notesApi } from "./data/remote/notes.api.js";
 const {
   getNotes,
@@ -19,6 +20,7 @@ const {
 document.addEventListener("DOMContentLoaded", async () => {
   const mainContent = document.getElementById("main-content");
   const noteSection = document.querySelector(".note-section");
+  const formSection = document.querySelector(".form-section");
   const noteList = document.createElement("note-list");
   let currentFilter = "all";
 
@@ -59,7 +61,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const appBar = document.querySelector("app-bar");
   appBar.addEventListener("toggleForm", () => {
+    // Jalankan toggle DULU, sesuai permintaan
     mainContent.classList.toggle("show");
+
+    // Lalu cek: apakah sekarang form sedang ditampilkan?
+    const isVisible = mainContent.classList.contains("show");
+
+    if (isVisible) {
+      // Kalau form baru dimunculkan
+      formSection.style.display = "grid";
+      gsap.fromTo(
+        formSection,
+        { opacity: 0.6, x: -150 },
+        { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }
+      );
+    } else {
+      formSection.style.display = "none";
+    }
   });
 
   appBar.addEventListener("filterNotes", async (event) => {
