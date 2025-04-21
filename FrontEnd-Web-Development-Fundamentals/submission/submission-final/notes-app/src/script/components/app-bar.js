@@ -14,9 +14,9 @@ class AppBar extends HTMLElement {
       :host {
         display: block;
         width: 100%;
-        background-color: white;
+        background-color: #FCFBF9;
         color: black;
-        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+        border-bottom: 2px solid rgba(41, 41, 41, 0.2);
       }
 
       div {
@@ -55,6 +55,29 @@ class AppBar extends HTMLElement {
       button.rotate .icon{
         transform: rotate(45deg);
       }
+
+      select {
+        padding: 8px 12px;
+        color: #333;
+        background-color: #eee;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+
+        appearence: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+      }
+
+      select:hover,
+      select:focus {
+        outline: none,
+        border: 1px solid #bbb;
+      }
+
+      select option {
+        background: #fff;
+      }
     `;
   }
 
@@ -75,7 +98,7 @@ class AppBar extends HTMLElement {
     this._shadowRoot.appendChild(this._style);
     this._shadowRoot.innerHTML += `
       <div>
-        <h1 class="app-name">Notes</h1>
+        <h1 class="app-name">Noted.</h1>
         <nav>
           <ul>
             <li>

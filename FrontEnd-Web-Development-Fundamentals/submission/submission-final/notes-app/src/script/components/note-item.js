@@ -48,7 +48,7 @@ class NoteItem extends HTMLElement {
       .note {
         background: #E0DEDE;
         padding: 16px;
-        border-radius: 8px;
+        border-radius: 24px;
         margin: 8px;
         box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
       }
@@ -75,7 +75,7 @@ class NoteItem extends HTMLElement {
       .note-footer button {
         padding: 6px 12px;
         border: none;
-        border-radius: 4px;
+        border-radius: 24px;
         cursor: pointer;
       }
       .note-footer button.delete {

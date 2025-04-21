@@ -15,16 +15,19 @@ class NoteForm extends HTMLElement {
         display: grid;
         width: 100%;
         grid-template-columns: 1fr;
-        background: #F5F5F5;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        border-radius: 4px;
+        background: #FCFBF9;
         gap: 8px;
+        border-right: 1.8px solid rgba(41, 41, 41, 0.2);
       }
 
       h2 {
+        display: flex;
         color: black;
         text-align: center;
         margin-bottom: 16px;
+        align-items: center;
+        gap: 4px; 
+        justify-content: center;
       }
 
       form {
@@ -71,6 +74,17 @@ class NoteForm extends HTMLElement {
     this._shadowRoot.innerHTML = "";
   }
 
+  _insertIcon() {
+    fetch(new URL('../../assets/icons/add_form.svg', import.meta.url))
+    .then(response => response.text())
+    .then(svg => {
+      const span = this._shadowRoot.querySelector('#icon-add');
+      span.innerHTML = svg;
+      console.log(span);
+    })
+    .catch(err => console.error('Gagal memuat ikon:', err));
+  }
+
   render() {
     this._emptyContent();
     this._updateStyle();
@@ -78,7 +92,10 @@ class NoteForm extends HTMLElement {
 
     this._shadowRoot.innerHTML += `
     <div class="container">
-      <h2>Form Catatan Baru</h2>
+      <h2>
+      <span>Add Note</span>
+      <span id="icon-add"></span>
+      </h2>
       <form id="note-form">
         <label for="title">Judul:</label>
         <input type="text" id="title" placeholder="Judul Catatan" required />
@@ -90,7 +107,7 @@ class NoteForm extends HTMLElement {
       </form>
     </div>
     `;
-
+    this._insertIcon();
     this._addEventListeners();
   }
 
