@@ -1,3 +1,5 @@
+import { sleep } from "../utils.js";
+
 export default class HomePresenter {
   #model;
   #view;
@@ -8,7 +10,12 @@ export default class HomePresenter {
   }
 
   async showCats() {
+    this.#view.showLoading();
+
     const cats = await this.#model.getAllCats();
+    await sleep();
     this.#view.showCats(cats);
+    
+    this.#view.hideLoading();
   }
 }
