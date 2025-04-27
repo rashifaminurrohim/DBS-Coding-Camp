@@ -105,3 +105,34 @@ body {
   max-width: 800px;
   height: auto;
 }
+
+/* css animation transition */
+@keyframes move-out {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes move-in {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
+
+::view-transition-old(root) {
+  animation-name: move-in;
+  animation-duration: 500ms;
+}
+
+::view-transition-new(root) {
+  animation: move-out 500ms;
+  animation-duration: 500ms;
+}
