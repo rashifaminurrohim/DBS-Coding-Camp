@@ -47,6 +47,8 @@ body {
   color: var(--white);
   display: grid;
   align-items: center;
+
+  view-transition-name: main-header;
 }
 
 .content {

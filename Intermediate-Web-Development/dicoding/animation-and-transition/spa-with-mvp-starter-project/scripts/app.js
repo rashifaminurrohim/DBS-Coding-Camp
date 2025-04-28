@@ -18,6 +18,7 @@ export default class App {
     // Alternative DOM update for browsers that do not support view transition
     if(!document.startViewTransition) {
       this.#content.innerHTML = await page.render();
+      await page.afterRender();
 
       return;
     }
@@ -31,7 +32,7 @@ export default class App {
       console.log('Callback telah dieksekusi.');
     });
 
-    transition.ready,then(() => {
+    transition.ready.then(() => {
       console.log('View transition siap dijalankan.');
     });
 
@@ -42,7 +43,7 @@ export default class App {
     // const transition = document.startViewTransition(() => {
     //   updateDOM();
     // });
-    
+
     // // Skip the view transition and update only the DOM
     // transition.skipTransition();
     

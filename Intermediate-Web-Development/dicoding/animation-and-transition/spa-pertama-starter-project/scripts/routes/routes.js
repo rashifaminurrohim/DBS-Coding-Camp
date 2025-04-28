@@ -1,3 +1,5 @@
+import CatDetailPage from "../../../spa-with-mvp-starter-project/scripts/pages/cat-detail-page";
+
 class HomePage {
   async render() {
     return `
@@ -36,6 +38,7 @@ class AboutPage {
 const routes = {
   '/': () => new HomePage(),
   '/about': () => new AboutPage(),
+  '/cat/:id': () => new CatDetailPage(),
 };
 
 export default routes;
