@@ -15,6 +15,31 @@
   --secondary-text-color: #ffffff;
 }
 
+@keyframes full-slide-from-right {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes full-slide-to-left {
+  to {
+    transform: translateX(-100%)
+  } 
+}
+
+::view-transition-old(root) {
+  animation-name: full-slide-to-left;
+  animation-duration: 900ms;
+  animation-timing-function: ease-out;
+}
+
+::view-transition-new(root) {
+  animation-name: full-slide-to-left;
+  animation-duration: 900ms;
+  animation-timing-function: ease-out;
+}
+
+
 body {
   font-family: 'Inter', sans-serif;
 }
@@ -227,6 +252,9 @@ header {
   inset-block-start: 0;
   box-shadow: 0 1px 4px 0 #00000055;
   z-index: 9999;
+
+  
+  view-transition-name: header;
 }
 
 .header-content {
