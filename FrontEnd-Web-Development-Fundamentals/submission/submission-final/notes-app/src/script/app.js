@@ -61,14 +61,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const appBar = document.querySelector("app-bar");
   appBar.addEventListener("toggleForm", () => {
-    // Jalankan toggle DULU, sesuai permintaan
     mainContent.classList.toggle("show");
 
-    // Lalu cek: apakah sekarang form sedang ditampilkan?
     const isVisible = mainContent.classList.contains("show");
 
     if (isVisible) {
-      // Kalau form baru dimunculkan
       formSection.style.display = "grid";
       gsap.fromTo(
         formSection,
@@ -194,7 +191,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const noteForm = document.querySelector("note-form");
   // create
   noteForm.addEventListener("newNoteAdded", async (event) => {
-    const { title, body } = event.detail;
+    const { title, body, color } = event.detail;
     const result = await withLoading(() => createNote(title, body));
     if (result.success) {
       Swal.fire({
@@ -202,6 +199,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         title: "Success!",
         text: "Note created",
       });
+      result.data.color = color;
       const noteItem = createNoteItem(result.data);
       if (currentFilter === "all" || currentFilter === "unarchive") {
         noteList.appendChild(noteItem);

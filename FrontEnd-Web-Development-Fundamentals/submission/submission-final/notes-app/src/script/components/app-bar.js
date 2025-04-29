@@ -44,12 +44,15 @@ class AppBar extends HTMLElement {
       button {
         font-size: 1.5rem;
         cursor: pointer;
+        background-color: rgb(39, 36, 36);
+        border-radius: 50%
       }
 
       button .icon {
         display: inline-block;
+        color: #FCFBF9;
         transition: transform 0.3s ease;
-        transform: rotate(0deg); /* <- tambahkan ini */
+        transform: rotate(0deg);
       }
 
       button.rotate .icon{
@@ -59,9 +62,9 @@ class AppBar extends HTMLElement {
       select {
         padding: 8px 12px;
         color: #333;
-        background-color: #eee;
-        border: 1px solid #ddd;
-        border-radius: 5px;
+        background-color: white;
+        border: 2px solid rgba(41, 41, 41, 0.2);
+        border-radius: 6px;
         cursor: pointer;
 
         appearence: none;
