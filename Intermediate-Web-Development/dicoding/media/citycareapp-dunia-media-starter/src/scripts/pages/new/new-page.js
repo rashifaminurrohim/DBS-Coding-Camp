@@ -101,9 +101,15 @@ export default class NewPage {
                   <video id="camera-video" class="new-form__camera__video">
                     Video stream no available.
                   </video>
+                  <canvas id="camera-canvas" class="new-form__camera__canvas"></canvas>
 
                   <div class="new-form__camera__tools">
                     <select id="camera-select"></select>
+                    <div class="new-form__camera__tools_buttons">
+                      <button id="camera-take-button" class="btn" type="button">
+                        Ambil Gambar
+                      </button>  
+                    </div>
                   </div>
                 </div>
                 <ul id="documentations-taken-list" class="new-form__documentations__outputs"></ul>
@@ -180,8 +186,8 @@ export default class NewPage {
       .getElementById('open-documentations-camera-button')
       .addEventListener('click', async (event) => {
         cameraContainer.classList.toggle('open');
-
         this.#isCameraOpen = cameraContainer.classList.contains('open');
+
         if (this.#isCameraOpen) {
           event.currentTarget.textContent = 'Tutup Kamera';
           this.#setupCamera();
@@ -191,6 +197,7 @@ export default class NewPage {
         }
 
         event.currentTarget.textContent = 'Buka Kamera';
+        this.#camera.stop();
       });
 
       
@@ -208,6 +215,13 @@ export default class NewPage {
     this.#camera = new Camera({
       video: document.getElementById('camera-video'),
       cameraSelect: document.getElementById('camera-select'),
+      cameraCanvas: document.getElementById('camera-canvas'),
+    });
+
+    this.#camera.addCheeseButtonListener('#camera-take-button', async () => {
+      const image = await this.#camera.takePicture();
+      await this.#addTakenPicture(image);
+      await this.#populateTakenPictures();
     });
   }
 

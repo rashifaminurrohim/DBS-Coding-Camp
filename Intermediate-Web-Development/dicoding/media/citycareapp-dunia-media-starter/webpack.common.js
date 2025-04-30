@@ -10,6 +10,21 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  resolve: {
+    fallback: {
+      util: require.resolve('util/'),
+      path: require.resolve('path-browserify'),
+      zlib: require.resolve('browserify-zlib'),
+      crypto: require.resolve('crypto-browserify'),
+      stream: require.resolve('stream-browserify'),
+      buffer: require.resolve('buffer/'),
+      process: require.resolve('process/browser'),
+      assert: require.resolve('assert/'),
+      url: require.resolve('url/'),
+      http: require.resolve('stream-http'),
+      https: require.resolve('https-browserify')
+    }
+  },
   module: {
     rules: [
       {
