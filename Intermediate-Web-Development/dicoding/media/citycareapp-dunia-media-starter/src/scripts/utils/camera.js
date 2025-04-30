@@ -26,6 +26,12 @@ export default class camera {
       window.currentStreams = [];
       return;
     }
+
+    window.currentStreams.forEach((stream) => {
+      if (stream.active) {
+        stream.getTracks().forEach((track) => track.stop());
+      }
+    });
   }
 
   constructor({ video, cameraSelect, canvas, options = {}}) {
@@ -111,6 +117,9 @@ export default class camera {
 
   async launch() {
     this.#currentStream = await this.#getStream();
+
+    // Record all MediaStream in global context
+    camera.addNewStream(this.#currentStream);
 
     this.#videoElement.srcObject = this.#currentStream;
     this.#videoElement.play();
