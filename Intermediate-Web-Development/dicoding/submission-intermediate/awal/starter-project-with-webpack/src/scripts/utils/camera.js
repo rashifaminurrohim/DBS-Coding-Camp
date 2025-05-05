@@ -1,13 +1,38 @@
 export default class Camera {
   #currentStream;
   #streaming = false;
+  #width = 640;
+  #height = 0;
 
   #videoElement;
   #selectCameraElement;
+  #canvasElement;
 
-  constructor({ video, cameraSelect, options = {} }) {
+  #takePictureButton;
+
+  static addNewStream(stream) {
+    if (!Array.isArray(window.currentStreams)) {
+      window.currentStreams = [stream];
+      return;
+    }
+    window.currentStreams = [...window.currentStreams, stream];
+  }
+  static stopAllStreams() {
+    if (!Array.isArray(window.currentStreams)) {
+      window.currentStreams = [];
+      return;
+    }
+    window.currentStreams.forEach((stream) => {
+      if (stream.active) {
+        stream.getTracks().forEach((track) => track.stop());
+      }
+    });
+  }
+
+  constructor({ video, cameraSelect, canvas, options = {} }) {
     this.#videoElement = video;
     this.#selectCameraElement = cameraSelect;
+    this.#canvasElement = canvas;
     this.#initialListener();
   }
 
@@ -16,6 +41,9 @@ export default class Camera {
       if (this.#streaming) {
         return;
       }
+      this.#height = (this.#videoElement.videoHeight * this.#width) / this.#videoElement.videoWidth;
+      this.#canvasElement.setAttribute('width', this.#width);
+      this.#canvasElement.setAttribute('height', this.#height);
       this.#streaming = true;
     };
 
@@ -23,6 +51,7 @@ export default class Camera {
       await this.stop();
       await this.launch();
     };
+
   }
 
   async #populateDeviceList(stream) {
@@ -80,6 +109,8 @@ export default class Camera {
 
     this.#videoElement.srcObject = this.#currentStream;
     this.#videoElement.play();
+
+    this.#clearCanvas();
   }
 
   stop() {
@@ -93,5 +124,32 @@ export default class Camera {
         track.stop();
       });
     }
+
+    this.#clearCanvas();
   }
+
+  #clearCanvas() {
+    const context = this.#canvasElement.getContext('2d');
+    context.fillStyle = '#AAAAAA';
+    context.fillRect(0, 0, this.#canvasElement.width, this.#canvasElement.height);
+  }
+
+  async takePicture() {
+    if (!(this.#width && this.#height)) {
+      return null;
+    }
+    const context = this.#canvasElement.getContext('2d');
+    this.#canvasElement.width = this.#width;
+    this.#canvasElement.height = this.#height;
+    context.drawImage(this.#videoElement, 0, 0, this.#width, this.#height);
+    return await new Promise((resolve) => {
+      this.#canvasElement.toBlob((blob) => resolve(blob));
+    });
+  }
+
+  addCheeseButtonListener(selector, callback) {
+    this.#takePictureButton = document.querySelector(selector);
+    this.#takePictureButton.onclick = callback;
+  }
+
 }

@@ -266,6 +266,10 @@ header {
   display: block;
 }
 
+.new-form__camera__canvas {
+  display: none;
+}
+
 .new-form__camera__video,
 .new-form__camera__canvas {
   width: 100%;
@@ -276,10 +280,11 @@ header {
 }
 
 .new-form__camera__tools {
+  margin-block: 8px;
+
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 8px 16px;
 }
 
 .new-form__camera__tools select {

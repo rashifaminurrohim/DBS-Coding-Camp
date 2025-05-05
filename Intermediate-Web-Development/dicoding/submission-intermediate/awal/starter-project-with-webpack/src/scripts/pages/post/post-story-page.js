@@ -1,3 +1,4 @@
+import { convertBase64ToBlob } from "../../utils/ConvertBase64toBlob";
 import Camera from "../../utils/camera";
 
 export default class PostStoryPage {
@@ -5,7 +6,7 @@ export default class PostStoryPage {
   #form;
   #camera;
   #isCameraOpen = false;
-  #takenDocumentations = [];
+  #takenDocumentation = null;
 
   async render() {
     return `
@@ -45,8 +46,14 @@ export default class PostStoryPage {
                     Video stream not available.
                   </video>
                   <div class="new-form__camera__tools">
-                    <select id="camera-select"></select>
+                  <canvas id="camera-canvas" class="new-form__camera__canvas"></canvas>
+                  <select id="camera-select"></select>
+                  <div class="new-form__camera__tools_buttons">
+                  <button id="camera-take-button" class="btn" type="button">
+                  Ambil Gambar
+                  </button>
                   </div>
+                </div>
                 </div>
                 <ul id="documentations-taken-list" class="new-form__documentations__outputs"></ul>
               </div>
@@ -89,11 +96,23 @@ export default class PostStoryPage {
   async afterRender() {
     // Do your job here
 
-    this.#takenDocumentations = [];
+    this.#takenDocumentation = [];
     this.#setupForm();
   }
 
   #setupForm() {
+
+    document.getElementById('documentations-input').addEventListener('change', async (event) => {
+      const insertingPicturesPromises = Object.values(event.target.files).map(async (file) => {
+        return await this.#addTakenPicture(file);
+      });
+      await Promise.all(insertingPicturesPromises);
+      await this.#populateTakenPictures();
+    });
+
+    document.getElementById('documentations-input-button').addEventListener('click', () => {
+      this.#form.elements.namedItem('documentations-input').click();
+    });
 
     const cameraContainer = document.getElementById('camera-container');
     document
@@ -126,7 +145,68 @@ export default class PostStoryPage {
     this.#camera = new Camera({
       video: document.getElementById('camera-video'),
       cameraSelect: document.getElementById('camera-select'),
+      canvas: document.getElementById('camera-canvas')
     });
+
+    this.#camera.addCheeseButtonListener('#camera-take-button', async () => {
+      const image = await this.#camera.takePicture();
+      await this.#addTakenPicture(image);
+      await this.#populateTakenPictures();
+    });
+  }
+
+  async #addTakenPicture(image) {
+    let blob = image;
+
+    if (image instanceof String) {
+      blob = await convertBase64ToBlob(image, 'image/png');
+    }
+
+    const newDocumentation = {
+      id: `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
+      blob: blob,
+    };
+    this.#takenDocumentation = newDocumentation;
+  }
+
+  async #populateTakenPictures() {
+    if (!this.#takenDocumentation) return;
+
+    const picture = this.#takenDocumentation;
+    const imageUrl = URL.createObjectURL(picture.blob);
+    const html = `
+    <li class="new-form__documentations__outputs-item">
+      <button type="button" data-deletepictureid="${picture.id}" class="new-form__documentations__outputs-item__delete-btn">
+        <img src="${imageUrl}" alt="Dokumentasi">
+      </button>
+    </li>
+  `;
+
+    document.getElementById('documentations-taken-list').innerHTML = html;
+
+    document.querySelectorAll('button[data-deletepictureid]').forEach((button) =>
+      button.addEventListener('click', (event) => {
+        const pictureId = event.currentTarget.dataset.deletepictureid;
+
+        const deleted = this.#removePicture(pictureId);
+        if (!deleted) {
+          console.log(`Picture with id ${pictureId} was not found`);
+        }
+
+        this.#populateTakenPictures();
+      }),
+    );
+  }
+
+  #removePicture(id) {
+    if (!this.#takenDocumentation || this.#takenDocumentation.id !== id) {
+    return null;
+  }
+
+  const deleted = this.#takenDocumentation;
+  this.#takenDocumentation = null;
+
+  return deleted;
   }
 
 }
