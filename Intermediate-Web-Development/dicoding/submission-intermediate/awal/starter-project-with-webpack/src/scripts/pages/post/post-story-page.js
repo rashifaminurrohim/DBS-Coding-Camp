@@ -111,6 +111,7 @@ export default class PostStoryPage {
       }
 
       event.currentTarget.textContent = 'Buka Kamera';
+      this.#camera.stop();
     });
   }
 
