@@ -95,7 +95,7 @@ header {
 
 /* MAIN */
 .main-content {
-  padding-block: 20px;
+  /* padding-block: 20px; */
 }
 
 /* Write your styles more here */
@@ -126,4 +126,221 @@ header {
   .drawer-button {
     display: none;
   }
+
+  /* code rashif goes below */
+  /* HOME PAGE */
+  .story-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    background-color: antiquewhite;
+    padding: 0.8em;
+    margin-block: 0.8em;
+    border-radius: 0.8em;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .story-list__map__container,
+  .story-list__map {
+    height: 400px;
+  }
+
+  .story-list__container {
+    min-height: 400px;
+  }
+
+  .story-list__map__container,
+  .story-list__container {
+    position: relative;
+  }
+
+  .story-list__map__container {
+    background-color: darkgray;
+  }
 }
+
+/* === Tambah Cerita Form Styles (Scoped) === */
+.add-story__header {
+  background-color: #f5f5f5;
+  padding: 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.add-story__header__title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Form container */
+.new-form__container {
+  margin-block: 2rem;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.new-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.new-form .form-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Label dan Input */
+.new-form label,
+.new-form__description__title,
+.new-form__documentations__title,
+.new-form__location__title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.new-form textarea {
+  min-height: 10rem;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  overflow-y: auto;
+}
+
+/* Buttons */
+.new-form .btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #4a90e2;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.new-form .btn:hover {
+  background-color: #357ab8;
+}
+
+.new-form .btn-outline {
+  background-color: transparent;
+  color: #4a90e2;
+  border: 1px solid #4a90e2;
+}
+
+.new-form .btn-outline:hover {
+  background-color: #e8f0ff;
+}
+
+/* Kamera & File Upload */
+.new-form__documentations__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-form__documentations__buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Kamera */
+.new-form__camera__container {
+  display: none; /* Show via JS */
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.new-form__camera__video,
+.new-form__camera__canvas {
+  width: 100%;
+  max-height: 300px;
+  background: black;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.new-form__camera__tools {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.new-form__camera__tools select {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+/* Gambar hasil ambil */
+#documentations-taken-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+#documentations-taken-list li img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Lokasi / Map */
+.new-form__location__container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.new-form__location__map {
+  width: 100%;
+  height: 300px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+#map-loading-container {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.new-form__location__lat-lng {
+  display: flex;
+  gap: 1rem;
+}
+
+.new-form__location__lat-lng input {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+}
+
+/* Form Buttons */
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+}
+
