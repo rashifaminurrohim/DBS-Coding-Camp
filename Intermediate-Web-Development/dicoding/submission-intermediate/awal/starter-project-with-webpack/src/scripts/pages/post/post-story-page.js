@@ -1,4 +1,12 @@
+import Camera from "../../utils/camera";
+
 export default class PostStoryPage {
+  #presenter;
+  #form;
+  #camera;
+  #isCameraOpen = false;
+  #takenDocumentations = [];
+
   async render() {
     return `
       <section>
@@ -80,5 +88,44 @@ export default class PostStoryPage {
 
   async afterRender() {
     // Do your job here
+
+    this.#takenDocumentations = [];
+    this.#setupForm();
   }
+
+  #setupForm() {
+
+    const cameraContainer = document.getElementById('camera-container');
+    document
+    .getElementById('open-documentations-camera-button')
+    .addEventListener('click', async (event) => {
+      cameraContainer.classList.toggle('open');
+      this.#isCameraOpen = cameraContainer.classList.contains('open');
+
+      if (this.#isCameraOpen) {
+        event.currentTarget.textContent = 'Tutup Kamera';
+        this.#setupCamera();
+        this.#camera.launch();
+
+        return;
+      }
+
+      event.currentTarget.textContent = 'Buka Kamera';
+    });
+  }
+
+  async initialMap() {
+    // TODO: map initialization
+  }
+
+  #setupCamera() {
+    if (this.#camera) {
+      return;
+    }
+    this.#camera = new Camera({
+      video: document.getElementById('camera-video'),
+      cameraSelect: document.getElementById('camera-select'),
+    });
+  }
+
 }
