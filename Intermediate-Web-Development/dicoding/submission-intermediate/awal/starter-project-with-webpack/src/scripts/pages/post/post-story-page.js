@@ -1,5 +1,7 @@
 import { convertBase64ToBlob } from "../../utils/ConvertBase64toBlob";
 import Camera from "../../utils/camera";
+import PostStoryPresenter from "./post-story-presenter.js";
+import * as StoryAPI from '../../data/api';
 
 export default class PostStoryPage {
   #presenter;
@@ -95,12 +97,27 @@ export default class PostStoryPage {
 
   async afterRender() {
     // Do your job here
-
+    this.#presenter = new PostStoryPresenter({
+      view: this,
+      model: StoryAPI,
+    });
     this.#takenDocumentation = [];
     this.#setupForm();
   }
 
   #setupForm() {
+    this.#form = document.getElementById('new-form');
+    this.#form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const data = {
+        description: this.#form.elements.namedItem('description').value,
+        photo: this.#takenDocumentation.blob,
+        lat: this.#form.elements.namedItem('latitude').value,
+        lon: this.#form.elements.namedItem('longitude').value,
+      };
+      await this.#presenter.postNewStory(data);
+    })
 
     document.getElementById('documentations-input').addEventListener('change', async (event) => {
       const insertingPicturesPromises = Object.values(event.target.files).map(async (file) => {
