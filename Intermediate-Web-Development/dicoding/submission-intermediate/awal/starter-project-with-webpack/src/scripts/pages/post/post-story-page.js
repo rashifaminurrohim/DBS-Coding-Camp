@@ -3,6 +3,8 @@ import Camera from "../../utils/camera";
 import PostStoryPresenter from "./post-story-presenter.js";
 import * as StoryAPI from '../../data/api';
 import Map from "../../utils/map.js";
+import { generateLoaderAbsoluteTemplate } from "../../template.js";
+
 
 export default class PostStoryPage {
   #presenter;
@@ -59,7 +61,9 @@ export default class PostStoryPage {
                   </div>
                 </div>
                 </div>
-                <ul id="documentations-taken-list" class="new-form__documentations__outputs"></ul>
+                <div id="documentations-taken-list" class="new-form__documentations__outputs">
+                <ul></ul>
+                </div>
               </div>
             </div>
 
@@ -121,14 +125,6 @@ export default class PostStoryPage {
       };
       await this.#presenter.postNewStory(data);
     })
-
-    document.getElementById('documentations-input').addEventListener('change', async (event) => {
-      const insertingPicturesPromises = Object.values(event.target.files).map(async (file) => {
-        return await this.#addTakenPicture(file);
-      });
-      await Promise.all(insertingPicturesPromises);
-      await this.#populateTakenPictures();
-    });
 
     document.getElementById('documentations-input-button').addEventListener('click', () => {
       this.#form.elements.namedItem('documentations-input').click();
@@ -201,7 +197,6 @@ export default class PostStoryPage {
     this.#camera.addCheeseButtonListener('#camera-take-button', async () => {
       const image = await this.#camera.takePicture();
       await this.#addTakenPicture(image);
-      await this.#populateTakenPictures();
     });
   }
 
@@ -219,44 +214,42 @@ export default class PostStoryPage {
     this.#takenDocumentation = newDocumentation;
   }
 
-  async #populateTakenPictures() {
-    if (!this.#takenDocumentation) return;
+  storeSuccessfully(message) {
+    console.log(message);
+    this.clearForm();
 
-    const picture = this.#takenDocumentation;
-    const imageUrl = URL.createObjectURL(picture.blob);
-    const html = `
-    <li class="new-form__documentations__outputs-item">
-      <button type="button" data-deletepictureid="${picture.id}" class="new-form__documentations__outputs-item__delete-btn">
-        <img src="${imageUrl}" alt="Dokumentasi">
+    // Redirect page
+    location.hash = '/';
+  }
+
+  storeFailed(message) {
+    alert(message);
+  }
+
+  clearForm() {
+    this.#form.reset();
+  }
+
+  showMapLoading() {
+    document.getElementById('map-loading-container').innerHTML = generateLoaderAbsoluteTemplate();
+  }
+
+  hideMapLoading() {
+    document.getElementById('map-loading-container').innerHTML = '';
+  }
+
+  showSubmitLoadingButton() {
+    document.querySelector('.form-buttons').innerHTML = `
+      <button class="btn" type="submit" disabled>
+        <i class="fas fa-spinner loader-button"></i> Unggah Cerita
       </button>
-    </li>
-  `;
-
-    document.getElementById('documentations-taken-list').innerHTML = html;
-
-    document.querySelectorAll('button[data-deletepictureid]').forEach((button) =>
-      button.addEventListener('click', (event) => {
-        const pictureId = event.currentTarget.dataset.deletepictureid;
-
-        const deleted = this.#removePicture(pictureId);
-        if (!deleted) {
-          console.log(`Picture with id ${pictureId} was not found`);
-        }
-
-        this.#populateTakenPictures();
-      }),
-    );
+    `;
   }
 
-  #removePicture(id) {
-    if (!this.#takenDocumentation || this.#takenDocumentation.id !== id) {
-    return null;
-  }
-
-  const deleted = this.#takenDocumentation;
-  this.#takenDocumentation = null;
-
-  return deleted;
+  hideSubmitLoadingButton() {
+    document.querySelector('.form-buttons').innerHTML = `
+      <button class="btn" type="submit">Unggah Cerita</button>
+    `;
   }
 
 }

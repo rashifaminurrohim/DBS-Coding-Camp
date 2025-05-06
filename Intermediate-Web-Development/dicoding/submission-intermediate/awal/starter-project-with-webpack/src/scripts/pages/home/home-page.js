@@ -2,6 +2,7 @@ import HomePresenter from "./home-presenter";
 import * as StoryApi from "../../data/api";
 import Map from "../../utils/map";
 import { storyCardItem } from "../../template";
+import { generateLoaderAbsoluteTemplate } from "../../template.js";
 
 export default class HomePage {
   #presenter = null;
@@ -36,7 +37,7 @@ export default class HomePage {
   
   async initialMap() {
     this.#map = await Map.build('#map', {
-      zoom: 10,
+      zoom: 5,
       locate: true,
     });
   }
@@ -71,4 +72,13 @@ export default class HomePage {
       this.#map.fitBounds(coordinatesList);
     }
   }
+
+  showMapLoading() {
+    document.getElementById('map-loading-container').innerHTML = generateLoaderAbsoluteTemplate();
+  }
+
+  hideMapLoading() {
+    document.getElementById('map-loading-container').innerHTML = '';
+  }
+
 }

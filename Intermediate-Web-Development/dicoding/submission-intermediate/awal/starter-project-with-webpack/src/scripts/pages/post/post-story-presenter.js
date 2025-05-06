@@ -8,19 +8,18 @@ export default class PostStoryPresenter {
   }
 
   async showPostFormMap() {
-    // this.#view.showMapLoading();
+    this.#view.showMapLoading();
     try {
       await this.#view.initialMap();
     } catch (error) {
       console.error('showNewFormMap: error:', error);
-    } 
-    // finally {
-    //   // this.#view.hideMapLoading();
-    // }
+    } finally {
+      this.#view.hideMapLoading();
+    }
   }
 
   async postNewStory ({ description, photo, lat, lon }) {
-    // loading func
+    this.#view.showSubmitLoadingButton();
     try {
       const data = {
         description: description,
@@ -32,15 +31,15 @@ export default class PostStoryPresenter {
       const response = await this.#model.postNewStory(data);
       if (response.error) {
         console.error('postNewStory: response:', response.message);
-        // #view inform user bout the error
+        this.#view.storeFailed(response.message);
         return;
       }
-      // #view inform user post success
-      alert(data.description);
+      this.#view.storeSuccessfully(response.message, response.data);
     } catch (error) {
       console.error('postNewReport: error:', error);
-      // #view inform user post success
+      this.#view.storeFailed(error.message);
+    } finally {
+      this.#view.hideSubmitLoadingButton();
     }
-    // hide loading on finally block
   }
 }

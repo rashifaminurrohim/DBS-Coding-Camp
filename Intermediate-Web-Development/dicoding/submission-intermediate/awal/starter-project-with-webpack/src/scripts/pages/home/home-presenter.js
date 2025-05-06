@@ -8,15 +8,14 @@ export default class HomePresenter {
   }
 
   async showStoryListMap() {
-    // this.#view.showMapLoading();
+    this.#view.showMapLoading();
     try {
       await this.#view.initialMap();
     } catch (error) {
       console.error('showReportsListMap: error:', error);
-    } 
-    // finally {
-    //   this.#view.hideMapLoading();
-    // }
+    } finally {
+      this.#view.hideMapLoading();
+    }
   }
 
   async getAllStories() {
@@ -27,7 +26,7 @@ export default class HomePresenter {
       console.log('API Response:', response);
       if (response.error) {
         console.error('getAllStories: error:', response.message);
-        // suruh view menampilkan error page [soon]
+        alert(response.message);
         return;
       }
 
