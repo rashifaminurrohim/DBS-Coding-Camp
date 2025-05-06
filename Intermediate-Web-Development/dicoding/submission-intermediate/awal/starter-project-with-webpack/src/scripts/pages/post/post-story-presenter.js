@@ -7,11 +7,23 @@ export default class PostStoryPresenter {
     this.#model = model;
   }
 
-  async postNewStory ({ desc, photo, lat, lon }) {
+  async showPostFormMap() {
+    // this.#view.showMapLoading();
+    try {
+      await this.#view.initialMap();
+    } catch (error) {
+      console.error('showNewFormMap: error:', error);
+    } 
+    // finally {
+    //   // this.#view.hideMapLoading();
+    // }
+  }
+
+  async postNewStory ({ description, photo, lat, lon }) {
     // loading func
     try {
       const data = {
-        description: desc,
+        description: description,
         photo: photo,
         lat: lat,
         lon: lon,
@@ -24,6 +36,7 @@ export default class PostStoryPresenter {
         return;
       }
       // #view inform user post success
+      alert(data.description);
     } catch (error) {
       console.error('postNewReport: error:', error);
       // #view inform user post success

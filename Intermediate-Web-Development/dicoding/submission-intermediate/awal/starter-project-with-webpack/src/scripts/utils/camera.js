@@ -107,6 +107,8 @@ export default class Camera {
   async launch() {
     this.#currentStream = await this.#getStream();
 
+    Camera.addNewStream(this.#currentStream);
+
     this.#videoElement.srcObject = this.#currentStream;
     this.#videoElement.play();
 

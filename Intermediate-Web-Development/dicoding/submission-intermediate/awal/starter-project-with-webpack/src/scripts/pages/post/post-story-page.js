@@ -2,6 +2,7 @@ import { convertBase64ToBlob } from "../../utils/ConvertBase64toBlob";
 import Camera from "../../utils/camera";
 import PostStoryPresenter from "./post-story-presenter.js";
 import * as StoryAPI from '../../data/api';
+import Map from "../../utils/map.js";
 
 export default class PostStoryPage {
   #presenter;
@@ -9,6 +10,7 @@ export default class PostStoryPage {
   #camera;
   #isCameraOpen = false;
   #takenDocumentation = null;
+  #map = null;
 
   async render() {
     return `
@@ -101,7 +103,8 @@ export default class PostStoryPage {
       view: this,
       model: StoryAPI,
     });
-    this.#takenDocumentation = [];
+    this.#takenDocumentation = null;
+    this.#presenter.showPostFormMap();
     this.#setupForm();
   }
 
@@ -152,7 +155,37 @@ export default class PostStoryPage {
   }
 
   async initialMap() {
-    // TODO: map initialization
+    this.#map = await Map.build('#map', {
+      zoom: 15,
+      locate: true,
+    });
+
+    // Preparing marker for select coordinate
+    const centerCoordinate = this.#map.getCenter();
+    console.log(centerCoordinate);
+
+    const draggableMarker = this.#map.addMarker(
+      [centerCoordinate.latitude, centerCoordinate.longitude],
+      { draggable: true },
+    );
+
+    draggableMarker.addEventListener('move', (event) => {
+      const coordinate = event.target.getLatLng();
+      this.#updateLatLngInput(coordinate.lat, coordinate.lng);
+    });
+
+    this.#map.addMapEventListener ('click', (event) => {
+      console.log(event.latlng)
+      draggableMarker.setLatLng(event.latlng);
+      // Keep center with user view
+      event.sourceTarget.flyTo(event.latlng);
+    });
+
+  }
+
+  #updateLatLngInput(latitude, longitude) {
+    this.#form.elements.namedItem('latitude').value = latitude;
+    this.#form.elements.namedItem('longitude').value = longitude;
   }
 
   #setupCamera() {

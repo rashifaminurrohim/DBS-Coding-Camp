@@ -15,9 +15,9 @@ export async function getAllStories({ location = 0 }) {
   return await fetchResponse.json();
 }
 
-export async function postNewStory({desc, photo, lat, lon}) {
+export async function postNewStory({description, photo, lat, lon}) {
   const formData = new FormData()
-  formData.set('description', desc);
+  formData.set('description', description);
   formData.set('photo', photo);
   formData.set('lat', lat);
   formData.set('lon', lon);

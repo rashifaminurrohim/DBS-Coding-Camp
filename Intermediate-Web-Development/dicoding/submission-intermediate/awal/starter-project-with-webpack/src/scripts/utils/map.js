@@ -1,4 +1,4 @@
-import { map, tileLayer, Icon, icon, marker, popup } from 'leaflet';
+import { map, tileLayer, Icon, icon, marker, popup, latLng } from 'leaflet';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -103,20 +103,24 @@ export default class Map {
     return newMarker;
   }
 
-  // addMarker(coordinates, markerOptions = {}, popupOptions = null) {
-  //   console.log('Creating marker at', coordinates);
-  //   const newMarker = marker(coordinates, {
-  //     icon: this.createIcon(),
-  //     ...markerOptions,
-  //   });
-  
-  //   newMarker.addTo(this.#map);
-  
-  //   if (popupOptions && popupOptions.content) {
-  //     newMarker.bindPopup(popupOptions.content).openPopup();
-  //   }
-  
-  //   return newMarker;
-  // }
-  
+  changeCamera(coordinate, zoomLevel = null) {
+    if (!zoomLevel) {
+      this.#map.setView(latLng(coordinate), this.#zoom);
+      return;
+    }
+
+    this.#map.setView(latLng(coordinate), zoomLevel);
+  }
+
+  getCenter() {
+    const { lat, lng } = this.#map.getCenter();
+    return {
+      latitude: lat,
+      longitude: lng
+    };
+  }
+
+  addMapEventListener(eventName, callback) {
+    this.#map.addEventListener(eventName, callback);
+  }
 }

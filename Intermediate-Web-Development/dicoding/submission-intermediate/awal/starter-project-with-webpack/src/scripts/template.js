@@ -13,7 +13,7 @@ export function storyCardItem({
       <div class="story-content">
         <h3>${name}</h3>
         <p>${description}</p>
-        <small>${new Date(createdAt).toLocaleString()}</small>
+        <span><p>${lat} , ${lon} <small>${new Date(createdAt).toLocaleString()}</small></span>
       </div>
     </div>
   `;
