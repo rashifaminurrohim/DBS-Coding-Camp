@@ -1,0 +1,41 @@
+:root {
+  --background-surface: #efefef;
+
+  --primaryColor: #43281c;
+  --secondaryColor: #333d29;
+
+  --color3: #ede0d4;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  background-color: var(--primaryColor);
+  padding-block: 20px 15px;
+
+  text-align: center;
+  font-weight: 500;
+  color: white;
+}
+
+.logger {
+  display: block;
+  margin-block-start: 20px;
+  margin-inline: auto;
+  border: 0;
+  padding: 15px 10px;
+
+  width: 90%;
+  height: 250px;
+  background-color: var(--color3);
+
+  font-size: 1rem;
+  resize: vertical;
+}
