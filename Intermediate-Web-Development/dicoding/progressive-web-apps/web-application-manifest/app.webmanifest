@@ -1,0 +1,26 @@
+{
+  "id": "/?source=pwa",
+  "start_url": "/?source=pwa",
+  "name": "Pokedex.org",
+  "display": "standalone",
+  "theme_color": "#A040A0",
+  "background_color": "#EEEEEE",
+  "icons": [
+    {
+      "src": "img/icon-48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icon-196.png",
+      "sizes": "196x196",
+      "type": "image/png"
+    }
+  ]
+}
+
