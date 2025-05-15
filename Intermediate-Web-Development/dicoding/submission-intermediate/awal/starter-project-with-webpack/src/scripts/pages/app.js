@@ -42,9 +42,14 @@ class App {
 
   async renderPage() {
     const url = getActiveRoute();
+    console.log('url', url);
     const route = routes[url];
+    console.log('route', route);
 
     const page = route();
+    if(!page) {
+      location.reload();
+    }
     console.log(page);
 
     const transition = transitionHelper({
