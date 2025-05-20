@@ -8,13 +8,16 @@ const ENDPOINTS = {
 
   // Story
   STORY: `${CONFIG.BASE_URL}/stories`,
-  STORY_DETAIL: (id) => `${BASE_URL}/stories/:${id}`,
+  STORY_DETAIL: (id) => `${CONFIG.BASE_URL}/stories/${id}`,
 
 };
 
-export async function getAllStories() {
+export async function getAllStories({ location = 0 }) {
   const accessToken = getAccessToken();
-  const fetchResponse = await fetch(ENDPOINTS.STORY, {
+  const url = new URL(ENDPOINTS.STORY);
+  
+  url.searchParams.set('location', location);
+  const fetchResponse = await fetch(url, {
     headers: { Authorization: `Bearer ${accessToken}`}
   });
   return await fetchResponse.json();

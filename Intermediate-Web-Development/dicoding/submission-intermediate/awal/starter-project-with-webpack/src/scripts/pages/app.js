@@ -1,6 +1,12 @@
 import routes from '../routes/routes';
 import { getActiveRoute } from '../routes/url-parser';
 import { setupSkipToContent, transitionHelper } from '../utils';
+import { getAccessToken, getLogout } from '../utils/auth';
+import { 
+  generateAuthenticatedNavigationListTemplate,
+  generateUnauthenticatedNavigationListTemplate,
+  generateMainNavigationListTemplate,
+} from '../template';
 
 class App {
   #content = null;
@@ -40,6 +46,34 @@ class App {
     });
   }
 
+  #setupNavigationList() {
+    const isLogin = !!getAccessToken();
+    const navListMain = this.#navigationDrawer.children.namedItem('nav-list-main');
+    const navList = this.#navigationDrawer.children.namedItem('nav-list');
+
+    // User not log in
+    if (!isLogin) {
+      navListMain.innerHTML = '';
+      navList.innerHTML = generateUnauthenticatedNavigationListTemplate();
+      return;
+    }
+
+    navListMain.innerHTML = generateMainNavigationListTemplate();
+    navList.innerHTML = generateAuthenticatedNavigationListTemplate();
+
+    const logoutButton = document.getElementById('logout-button');
+    logoutButton.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      if (confirm('Apakah Anda yakin ingin keluar?')) {
+        getLogout();
+
+        // Redirect
+        location.hash = '/login';
+      }
+    });
+  }
+
   async renderPage() {
     const url = getActiveRoute();
     console.log('url', url);
@@ -61,6 +95,7 @@ class App {
     transition.ready.catch(console.error);
     transition.updateCallbackDone.then(() => {
       scrollTo({ top: 0, behavior: 'instant' });
+      this.#setupNavigationList();
     });
   }
 }

@@ -22,7 +22,7 @@ export default class HomePresenter {
     // this.#view.showLoading();
     try {
       await this.showStoryListMap();
-      const response = await this.#model.getAllStories();
+      const response = await this.#model.getAllStories({ location: 1 });
       console.log('API Response:', response);
       if (response.error) {
         console.error('getAllStories: error:', response.message);
