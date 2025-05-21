@@ -96,10 +96,6 @@ export function generateRemoveStoryButtonTemplate() {
   `;
 }
 
-
-
-
-
 export function generateMainNavigationListTemplate() {
   return `
     <li><a id="story-list-button" class="story-list-button" href="#/">Beranda</a></li>
@@ -109,6 +105,7 @@ export function generateMainNavigationListTemplate() {
 
 export function generateUnauthenticatedNavigationListTemplate() {
   return `
+    <li id="push-notification-tools" class="push-notification-tools"></li>
     <li><a id="login-button" href="#/login">Login</a></li>
     <li><a id="register-button" href="#/register">Register</a></li>
   `;
@@ -119,6 +116,22 @@ export function generateAuthenticatedNavigationListTemplate() {
     <li id="push-notification-tools" class="push-notification-tools"></li>
     <li><a id="new-report-button" class="btn new-report-button" href="#/post-story">Buat Laporan <i class="fas fa-plus"></i></a></li>
     <li><a id="logout-button" class="logout-button" href="#/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+  `;
+}
+
+export function generateSubscribeButtonTemplate() {
+  return `
+    <button id="subscribe-button" class="btn subscribe-button">
+      Notify me <i class="fas fa-bell"></i>
+    </button>
+  `;
+}
+
+export function generateUnsubscribeButtonTemplate() {
+  return `
+    <button id="unsubscribe-button" class="btn unsubscribe-button">
+      Don't notify me <i class="fas fa-bell-slash"></i>
+    </button>
   `;
 }
 

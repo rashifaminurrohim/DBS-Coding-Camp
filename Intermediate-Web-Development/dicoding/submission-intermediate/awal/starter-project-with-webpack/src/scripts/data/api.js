@@ -10,6 +10,8 @@ const ENDPOINTS = {
   STORY: `${CONFIG.BASE_URL}/stories`,
   STORY_DETAIL: (id) => `${CONFIG.BASE_URL}/stories/${id}`,
 
+  // Push Notification
+  NOTIFICATIONS: `${CONFIG.BASE_URL}/notifications/subscribe`,
 };
 
 export async function getAllStories({ location = 0 }) {
@@ -76,5 +78,38 @@ export async function getStoryById(id) {
     }
   });
 
+  return await fetchResponse.json();
+}
+
+export async function subscribePushNotification({ endpoint, keys: { p256dh, auth }}) {
+  const accessToken = getAccessToken();
+  const data = JSON.stringify({
+    endpoint,
+    keys: { p256dh, auth },
+  });
+
+  const fetchResponse = await fetch(ENDPOINTS.NOTIFICATIONS, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`,
+    },
+    body: data,
+  });
+  return await fetchResponse.json();
+}
+
+export async function unsubscribePushNotification({ endpoint }) {
+  const accessToken = getAccessToken();
+  const data = JSON.stringify({ endpoint });
+
+  const fetchResponse = await fetch(ENDPOINTS.NOTIFICATIONS, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`,
+    },
+    body: data,
+  });
   return await fetchResponse.json();
 }
