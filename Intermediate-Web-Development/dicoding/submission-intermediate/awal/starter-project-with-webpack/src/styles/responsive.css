@@ -1,0 +1,135 @@
+/* responsive.css */
+
+/* === RESPONSIVE FOR MOBILE & TABLET === */
+@media screen and (max-width: 800px) {
+  /* Container layout */
+  .login-container,
+  .register-container {
+    padding: 2rem 1rem;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+  }
+
+  .login-form-container,
+  .register-form-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .login__title,
+  .register__title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .login-form,
+  .register-form {
+    width: 100%;
+  }
+
+  .form-control {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .login-form input,
+  .register-form input {
+    font-size: 1rem;
+    padding: 0.65rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #fdfdfd;
+  }
+
+  .login-form input:focus,
+  .register-form input:focus {
+    border-color: #4CAF50;
+    outline: none;
+  }
+
+  #submit-button-container .btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .login-form__form-buttons,
+  .register-form__form-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .login-form__do-not-have-account,
+  .register-form__already-have-account {
+    font-size: 0.95rem;
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .login-form__do-not-have-account a,
+  .register-form__already-have-account a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .login-form__do-not-have-account a:hover,
+  .register-form__already-have-account a:hover {
+    text-decoration: underline;
+  }
+
+  /* Header nav drawer (if any) */
+  .navigation-drawer {
+    width: 80%;
+    padding: 1rem;
+  }
+
+  .nav-list li a {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .main-header {
+    flex-direction: row;
+    padding: 1rem;
+  }
+
+  .story-list__map__container,
+  .story-list__container {
+    position: relative;
+  }
+
+  .story-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    background-color: antiquewhite;
+    padding: 0.8em;
+    margin-block: 0.8em;
+    border-radius: 0.8em;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .story-list__map__container,
+  .story-list__map {
+    height: 400px;
+  }
+
+  .story-list__container {
+    min-height: 400px;
+  }
+
+  .story-list__map__container {
+    background-color: darkgray;
+  }
+}
