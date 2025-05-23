@@ -592,3 +592,21 @@ header {
 .container {
   padding: 1rem;
 }
+
+/* NOT FOUND */
+.not-found {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.not-found h1 {
+  font-size: 5rem;
+  color: #f44336;
+  margin-bottom: 1rem;
+}
+
+.not-found p {
+  font-size: 1.25rem;
+  color: #666;
+  margin-block: 1em;
+}

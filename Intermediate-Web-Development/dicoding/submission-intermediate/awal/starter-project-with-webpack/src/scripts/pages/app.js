@@ -1,4 +1,5 @@
 import routes from '../routes/routes';
+import NotFoundPage from './error/notfound-page';
 import { getActiveRoute } from '../routes/url-parser';
 import { isServiceWorkerAvailable, setupSkipToContent, transitionHelper } from '../utils';
 import { getAccessToken, getLogout } from '../utils/auth';
@@ -102,15 +103,9 @@ class App {
 
   async renderPage() {
     const url = getActiveRoute();
-    console.log('url', url);
     const route = routes[url];
-    console.log('route', route);
 
-    const page = route();
-    if(!page) {
-      location.reload();
-    }
-    console.log(page);
+    const page = route ? route() : new NotFoundPage();
 
     const transition = transitionHelper({
       updateDOM: async () => {

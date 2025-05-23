@@ -69,9 +69,6 @@ export default class BookmarkPage {
     }, '');
     
     container.innerHTML = html;
-    if (coordinatesList.length > 0) {
-      this.#map.fitBounds(coordinatesList);
-    }
   }
 
   showMapLoading() {
