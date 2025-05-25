@@ -106,6 +106,9 @@ class App {
     const route = routes[url];
 
     const page = route ? route() : new NotFoundPage();
+    if (!page) {
+      location.reload();
+    }
 
     const transition = transitionHelper({
       updateDOM: async () => {
