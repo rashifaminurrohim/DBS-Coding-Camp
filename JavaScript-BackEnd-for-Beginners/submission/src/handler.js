@@ -1,4 +1,4 @@
-const { nanoid } = require("nanoid");
+const { nanoid } = require('nanoid');
 const books = require('./books');
 
 
@@ -9,7 +9,7 @@ const addBookHandler = (request, h) => {
   const updatedAt = insertedAt;
   let finished = false;
   pageCount === readPage ? finished = true : finished = false;
-  
+
   // validasi input
   if (!name) {
     const response = h.response({
@@ -19,7 +19,7 @@ const addBookHandler = (request, h) => {
     response.code(400);
     return response;
   }
-  
+
   if (readPage > pageCount) {
     const response = h.response({
       status: 'fail',
@@ -28,14 +28,14 @@ const addBookHandler = (request, h) => {
     response.code(400);
     return response;
   }
-  
+
   const newBook = {
     id, name, year, author, summary, publisher, pageCount, readPage, finished, reading, insertedAt, updatedAt
   };
-  
+
   books.push(newBook);
   const isSuccess = books.filter((book) => book.id === id).length > 0;
-  
+
   if (isSuccess) {
     const response = h.response({
       status: 'success',
@@ -47,14 +47,14 @@ const addBookHandler = (request, h) => {
     response.code(201);
     return response;
   }
-  
+
   const response = h.response({
     status: 'fail',
     message: 'buku gagal ditambahkan',
   });
   response.code(500);
   return response;
-  
+
 };
 
 const getAllBooksHandler = (request, h) => {
@@ -95,7 +95,7 @@ const getAllBooksHandler = (request, h) => {
 const getBookByIdHandler = (request, h) => {
   const { bookId } = request.params;
   const book = books.filter((b) => b.id === bookId)[0];
-  
+
   if (book !== undefined) {
     return {
       status: 'success',
@@ -104,7 +104,7 @@ const getBookByIdHandler = (request, h) => {
       }
     };
   }
-  
+
   const response = h.response({
     status: 'fail',
     message: 'Buku tidak ditemukan'
@@ -119,7 +119,7 @@ const updateBookByIdHandler = (request, h) => {
   const updatedAt = new Date().toISOString();
   let finished = false;
   pageCount === readPage ? finished = true : finished = false;
-  
+
   // validasi input
   if (!name) {
     const response = h.response({
@@ -129,7 +129,7 @@ const updateBookByIdHandler = (request, h) => {
     response.code(400);
     return response;
   }
-  
+
   if (readPage > pageCount) {
     const response = h.response({
       status: 'fail',
@@ -193,4 +193,4 @@ const deleteBookByIdHandler = (request, h) => {
   return response;
 };
 
-module.exports = { addBookHandler, getAllBooksHandler, getBookByIdHandler, updateBookByIdHandler, deleteBookByIdHandler }
+module.exports = { addBookHandler, getAllBooksHandler, getBookByIdHandler, updateBookByIdHandler, deleteBookByIdHandler };
