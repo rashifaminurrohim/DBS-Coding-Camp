@@ -1,3 +1,5 @@
+import { storyMapper } from "../../data/api-mapper";
+
 export default class HomePresenter {
   #view;
   #model;
@@ -30,7 +32,11 @@ export default class HomePresenter {
         return;
       }
 
-      this.#view.populateStoryList(response.message, response.listStory);
+      const mappedStories = await Promise.all(
+        response.listStory.map(storyMapper)
+      );
+
+      this.#view.populateStoryList(response.message, mappedStories);
     } catch (error) {
       console.log(error.message);
     } 

@@ -2,6 +2,7 @@ import { map, tileLayer, Icon, icon, marker, popup, latLng } from 'leaflet';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import CONFIG from '../config';
 
 export default class Map {
   #zoom = 5;
@@ -10,7 +11,7 @@ export default class Map {
   constructor(selector, options = {}) {
     this.#zoom = options.zoom ?? this.#zoom;
 
-    const tileOsm = tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    const tileMaptiler = tileLayer(`https://api.maptiler.com/maps/winter-v2/256/{z}/{x}/{y}.png?key=${CONFIG.MAP_SERVICE_API_KEY}`, {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
     });
@@ -18,9 +19,27 @@ export default class Map {
     this.#map = map(document.querySelector(selector), {
       zoom: this.#zoom,
       scrollWheelZoom: false,
-      layers: [tileOsm],
+      layers: [tileMaptiler],
       ...options,
     })
+  }
+
+  static async getPlaceNameByCoordinate(latitude, longitude) {
+    try {
+      const url = new URL(`https://api.maptiler.com/geocoding/${longitude},${latitude}.json`);
+      url.searchParams.set('key', CONFIG.MAP_SERVICE_API_KEY);
+      url.searchParams.set('language', 'id');
+      url.searchParams.set('limit', '1');
+
+      const response = await fetch(url);
+      const json = await response.json();
+
+      const place = json.features[0].place_name.split(', ');
+      return [place.at(-2)].map((name) => name).join(', ');
+    } catch (error) {
+      console.error('getPlaceNameByCoordinate: error:', error);
+      return `${latitude}, ${longitude}`;
+    }
   }
 
   static isGeolocationAvailable() {

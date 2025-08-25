@@ -4,18 +4,51 @@ export function storyCardItem({
   description,
   photoUrl,
   createdAt,
-  lat,
-  lon,
+  coordinate,
 }) {
   return `
-    <a href="#/stories/${id}" class="story-card">
-      <img src="${photoUrl}" alt="${name}'s story photo" class="story-image" />
-      <div class="story-content">
-        <h2>${name}</h2>
-        <p>${description}</p>
-        <span><p>${lat} , ${lon} <small>${new Date(createdAt).toLocaleString()}</small></span>
+    <div class="story-card">
+      <div class="story-photo">
+        <img src="${photoUrl}" alt="${name}'s story photo" class="story-image" />
       </div>
-    </a>
+      <div class="story-content">
+        <div class="story-content-top">
+          <div class="story-title">
+            <h2>${name}</h2>
+            <small>at ${coordinate.placeName}</small>
+          </div>
+          <p>${description}</p>
+        </div>
+        <div class="story-content-bottom">
+        <div class="story-datetime">
+          <div class="story-datetime-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#f6a925" d="M9 11H7v2h2zm4 0h-2v2h2zm4 0h-2v2h2zm4-7h-3V2h-2v2H8V2H6v2H3v18h18zm-2 16H5V9h14z"/></svg>
+            <p>${new Date(createdAt).toLocaleDateString("en-US", {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+              })}
+            </p>
+          </div>
+          <div class="story-datetime-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#f6a925" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16m1-8h4v2h-6V7h2z"/></svg>
+            <p>${new Date(createdAt).toLocaleTimeString("id-ID", {
+                  hour: "2-digit",
+                  minute: "2-digit"
+                })}
+            </p>
+          </div>  
+        </div>
+        <div class="story-location">
+          <div class="story-location-item">     
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 16 16"><path fill="#c12f64" fill-rule="evenodd" d="M12.5 6a4.47 4.47 0 0 1-.883 2.677L8 13.5L4.383 8.677A4.5 4.5 0 1 1 12.5 6M14 6c0 1.34-.439 2.576-1.18 3.574L8.937 14.75L8 16l-.938-1.25L3.18 9.574A6 6 0 1 1 14 6M8 8a2 2 0 1 0 0-4a2 2 0 0 0 0 4" clip-rule="evenodd"/></svg>    
+            ${coordinate.lat.toFixed(5)} , ${coordinate.lon.toFixed(5)}
+          </div>
+          <button class="btn"><a href="#/stories/${id}">Details</a></button>
+        </div>
+        </div>  
+      </div>
+    </div>
   `;
 }
 
@@ -98,8 +131,8 @@ export function generateRemoveStoryButtonTemplate() {
 
 export function generateMainNavigationListTemplate() {
   return `
-    <li><a id="story-list-button" class="story-list-button" href="#/">Beranda</a></li>
-    <li><a id="bookmark-button" class="bookmark-button" href="#/bookmark">Cerita Tersimpan</a></li>
+    <li><a id="story-list-button" class="story-list-button" href="#/"><h1>HOME</h1></a></li>
+    <li><a id="bookmark-button" class="bookmark-button" href="#/bookmark"><h1>BOOKMARK</h1></a></li>
   `;
 }
 
@@ -113,16 +146,22 @@ export function generateUnauthenticatedNavigationListTemplate() {
 
 export function generateAuthenticatedNavigationListTemplate() {
   return `
-    <li id="push-notification-tools" class="push-notification-tools"></li>
-    <li><a id="new-report-button" class="btn new-report-button" href="#/post-story">Buat Laporan <i class="fas fa-plus"></i></a></li>
-    <li><a id="logout-button" class="logout-button" href="#/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    <li><a id="new-report-button" href="#/post-story"><h1>POST</h1></a></li>
+    <div>
+      <li id="push-notification-tools" class="push-notification-tools"></li>
+      <li>
+        <a id="logout-button" href="#/logout" class="btn logout-button">
+          Logout <i class="fas fa-sign-out-alt"></i>
+        </a>
+      </li>
+    </div>
   `;
 }
 
 export function generateSubscribeButtonTemplate() {
   return `
     <button id="subscribe-button" class="btn subscribe-button">
-      Notify me <i class="fas fa-bell"></i>
+      Subscribe <i class="fas fa-bell"></i>
     </button>
   `;
 }
@@ -130,8 +169,9 @@ export function generateSubscribeButtonTemplate() {
 export function generateUnsubscribeButtonTemplate() {
   return `
     <button id="unsubscribe-button" class="btn unsubscribe-button">
-      Don't notify me <i class="fas fa-bell-slash"></i>
+      Unsubscribe <i class="fas fa-bell-slash"></i>
     </button>
   `;
 }
+
 

@@ -10,17 +10,13 @@ export default class HomePage {
 
   async render() {
     return `
-      <section>
-        <div class="story-list__map__container">
-          <div id="map" class="story-list__map"></div>
-          <div id="map-loading-container"></div>
-        </div>
-      </section>
-      
-      <section class="container">
-        <h1>Home Page</h1>
-        <div id="story-list" class="story-list"></div>
-      </section>
+        <section class="home-container">
+          <div id="story-list" class="story-list"></div>
+          <div class="story-list__map__container">
+            <div id="map" class="story-list__map"></div>
+            <div id="map-loading-container"></div>
+          </div>
+        </section>
     `;
   }
 
@@ -54,7 +50,7 @@ export default class HomePage {
 
     const html = stories.reduce((accumulator, story) => {
       if (this.#map) {
-        const coordinate = [story.lat, story.lon];
+        const coordinate = [story.coordinate.lat, story.coordinate.lon];
         const markerOptions = { alt: story.name };
         const popupOptions = { content: story.name };
         console.log('Adding marker at:', story.lat, story.lon);
