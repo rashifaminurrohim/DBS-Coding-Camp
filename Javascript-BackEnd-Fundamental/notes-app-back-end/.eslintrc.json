@@ -10,6 +10,10 @@
         "ecmaVersion": 2020
     },
     "rules": {
-        "no-console": "off"
+        "no-console": "off",             // biar boleh pakai console.log
+        "linebreak-style": "off",        // matiin error CRLF/LF
+        "no-underscore-dangle": "off",   // biar boleh pakai _var
+        "no-unused-vars": "warn",        // kalau ada var ga kepakai cuma kuning
+        "eqeqeq": "warn"                 // biar '==' gak merah, cuma warning
     }
 }
