@@ -15,8 +15,8 @@ const init = async () => {
   const songsService = new SongsService();
 
   const server = Hapi.server({
-    port: process.env.port,
-    host: process.env.host,
+    port: process.env.PORT,
+    host: process.env.HOST,
     routes: {
       cors: {
         origin: ['*'],
