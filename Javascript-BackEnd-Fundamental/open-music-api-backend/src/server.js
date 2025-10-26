@@ -3,10 +3,10 @@ const Hapi = require('@hapi/hapi');
 const albums = require('./api/albums');
 const songs = require('./api/songs');
 
-const AlbumsService = require('./services/inMemory/AlbumsService');
+const AlbumsService = require('./services/postgres/albums/AlbumsService');
 const AlbumsValidator = require('./validator/albums');
 
-const SongsService = require('./services/inMemory/SongsService');
+const SongsService = require('./services/postgres/songs/SongsService');
 const SongsValidator = require('./validator/songs');
 const ClientError = require('./exceptions/ClientError');
 
