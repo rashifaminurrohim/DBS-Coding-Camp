@@ -42,7 +42,7 @@ const init = async () => {
   ]);
   
   server.ext('onPreResponse', (request, h) => {
-    // mendapatkan konteks response datri requset
+    // mendapatkan konteks response dari requset
     const { response } = request;
 
     // penanganan client error secara internal
