@@ -34,8 +34,15 @@ class SongsHandler {
     return response;
   }
 
-  async getSongsHandler() {
-    const songs = await this._service.getSongs();
+  async getSongsHandler(request) {
+    const { title, performer } = request.query;
+    let songs;
+
+    if (title || performer) {
+      songs = await this._service.getSongsByTitleOrPerformer({title, performer});
+    } else {
+      songs = await this._service.getSongs();
+    }
     return {
       status: 'success',
       data: {
@@ -73,6 +80,17 @@ class SongsHandler {
       status: 'success',
       message: 'Lagu berhasil dihapus',
     };
+  }
+
+  async getSongsByTitleOrPerformer(request) {
+    const { title, performer } = request.params;
+    const songs = await this._service.getSongsByTitleOrPerformer({title, performer});
+    return {
+      status: 'success',
+      data: {
+        songs,
+      }
+    }
   }
 }
 
